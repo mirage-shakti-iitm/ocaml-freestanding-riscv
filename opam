@@ -21,10 +21,6 @@ depends: [
   "ocaml-riscv"
   "ocaml-boot-riscv"
 ]
-substs: [
-  "files/cflags.tmp"
-  "files/libs.tmp"
-]
 
 synopsis: "Freestanding OCaml runtime"
 description:
