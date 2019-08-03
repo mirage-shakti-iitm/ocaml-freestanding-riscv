@@ -1,0 +1,1 @@
+-L%{ocaml-freestanding-riscv:lib}% -lasmrun -lnolibc

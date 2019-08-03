@@ -1,0 +1,4 @@
+Makeconf
+build/
+config/
+ocaml-freestanding.pc

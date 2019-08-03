@@ -1,0 +1,40 @@
+opam-version: "2.0"
+version: "0.4.2"
+maintainer: "Sai Venkata Krishnan <saiganesha5.svkv@gmail.com>"
+authors: "Martin Lucina <martin@lucina.net>"
+homepage: "https://github.com/mirage-shakti-iitm/ocaml-freestanding-riscv"
+bug-reports: "https://github.com/mirage-shakti-iitm/ocaml-freestanding-riscvissues/"
+license: "MIT"
+tags: "org:mirage"
+dev-repo: "git+https://github.com/mirage-shakti-iitm/ocaml-freestanding-riscv.git"
+build: [
+  ["env" "BUILD_ARCH=riscv64" "PKG_CONFIG_PATH=%{prefix}%/share/pkgconfig" "./configure.sh"]
+  ["env" "BUILD_ARCH=riscv64" "PKG_CONFIG_PATH=%{prefix}%/share/pkgconfig" make]
+]
+install: [make "install" "PREFIX=%{prefix}%"]
+remove: [make "uninstall" "PREFIX=%{prefix}%"]
+depends: [
+  "conf-pkg-config"
+  "ocamlfind" {build}
+  "ocaml-src-riscv" {build}
+  "ocaml" {= "4.07.0"}
+  "ocaml-riscv"
+  "ocaml-boot-riscv"
+]
+conflicts: [
+  "sexplib" {= "v0.9.0"}
+  "solo5-kernel-ukvm"
+  "solo5-kernel-virtio"
+  "solo5-kernel-muen"
+]
+substs: [
+  "cflags.tmp"
+  "libs.tmp"
+]
+extra-files: [
+  ["cflags.tmp.in" "md5=a5cc9f5c04e5d96b0f2b6f62f8a165e1"]
+  ["libs.tmp.in" "md5=30bd7458eb618332e03406b3de9908a6"]
+] 
+synopsis: "Freestanding OCaml runtime"
+description:
+  "This package provides a freestanding OCaml runtime (asmrun), suitable for linking with a unikernel base layer. Modified for RiscV"
