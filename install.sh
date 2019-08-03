@@ -54,5 +54,5 @@ touch ${DESTLIB}/META
 # pkg-config
 mkdir -p ${prefix}/lib/pkgconfig
 cp ocaml-freestanding-riscv.pc ${prefix}/lib/pkgconfig/ocaml-freestanding-riscv.pc
-cp files/cflags ${DESTLIB}
-cp files/libs ${DESTLIB}
+cp cflags ${DESTLIB}
+cp libs ${DESTLIB}

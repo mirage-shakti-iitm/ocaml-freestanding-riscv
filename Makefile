@@ -15,7 +15,7 @@ FREESTANDING_LIBS=$(BUILD)/ocaml/asmrun/libasmrun.a \
 		  $(BUILD)/nolibc/libnolibc.a
 endif
 
-all: $(FREESTANDING_LIBS) ocaml-freestanding-riscv.pc files/libs files/cflags
+all: $(FREESTANDING_LIBS) ocaml-freestanding-riscv.pc libs cflags
 
 nolibc: $(BUILD)/nolibc/libnolibc.a
 
@@ -92,21 +92,21 @@ ocaml-freestanding-riscv.pc: ocaml-freestanding-riscv.pc.in
 	    -e 's!@@PKG_CONFIG_EXTRA_LIBS@@!$(PKG_CONFIG_EXTRA_LIBS)!' \
 	    ocaml-freestanding-riscv.pc.in > $@
 
-files/libs: libs.tmp Makeconf
+libs: libs.tmp Makeconf
 	sed -e 's!@@PKG_CONFIG_EXTRA_LIBS@@!$(PKG_CONFIG_EXTRA_LIBS)!' \
 	    libs.tmp > libs.tmp2
 	for PKG in $(PKG_CONFIG_DEPS); do \
 		echo " " >> libs.tmp2;\
 		env PKG_CONFIG_PATH=$(shell opam config var prefix)/share/pkgconfig pkg-config $$PKG --libs >> libs.tmp2;\
 	done
-	echo "("`cat libs.tmp2`")" > files/libs
+	echo "("`cat libs.tmp2`")" > libs
 
-files/cflags: cflags.tmp Makeconf
+cflags: cflags.tmp Makeconf
 	for PKG in $(PKG_CONFIG_DEPS); do \
 		echo " " >> cflags.tmp;\
 		env PKG_CONFIG_PATH=$(shell opam config var prefix)/share/pkgconfig pkg-config $$PKG --cflags >> cflags.tmp;\
 	done
-	echo "("`cat cflags.tmp`")" > files/cflags
+	echo "("`cat cflags.tmp`")" > cflags
 
 install: all
 	./install.sh
