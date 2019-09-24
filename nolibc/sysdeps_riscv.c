@@ -29,6 +29,13 @@ static size_t console_write(FILE *f __attribute__((unused)), const char *s,
     return l;
 }
 
+size_t console_read(FILE *f __attribute__((unused)), char *s,
+        size_t l)
+{
+    riscv_read(s, l);
+    return l;
+}
+
 static FILE console = { .write = console_write };
 FILE *stderr = &console;
 FILE *stdout = &console;
@@ -69,10 +76,6 @@ int gettimeofday(struct timeval *tv, struct timezone *tz)
     if (tz != NULL) {
         memset(tz, 0, sizeof(*tz));
     }
-    char *d = (char*) malloc(8);
-    char *s = "GANESHA\n";
-    memcpy(d,s,8);
-    riscv_write(d,8);
     return 0;
 }
 
