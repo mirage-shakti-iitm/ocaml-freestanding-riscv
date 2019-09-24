@@ -8,8 +8,8 @@ license: "MIT"
 tags: "org:mirage"
 dev-repo: "git+https://github.com/mirage-shakti-iitm/ocaml-freestanding-riscv.git"
 build: [
-  ["env" "BUILD_ARCH=riscv64" "PKG_CONFIG_PATH=%{prefix}%/lib/ocaml-boot-riscv/share/pkgconfig" "./configure.sh"]
-  ["env" "BUILD_ARCH=riscv64" "PKG_CONFIG_PATH=%{prefix}%/lib/ocaml-boot-riscv/share/pkgconfig" make]
+  ["env" "BUILD_ARCH=riscv64" "PKG_CONFIG_PATH=%{prefix}%/share/pkgconfig" "./configure.sh"]
+  ["env" "BUILD_ARCH=riscv64" "PKG_CONFIG_PATH=%{prefix}%/share/pkgconfig" make]
 ]
 install: [make "install" "PREFIX=%{prefix}%"]
 remove: [make "uninstall" "PREFIX=%{prefix}%"]
