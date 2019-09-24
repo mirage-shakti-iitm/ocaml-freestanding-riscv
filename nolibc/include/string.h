@@ -19,4 +19,12 @@ char *strncpy(char *, const char *, size_t);
 char *strchr(const char *, int);
 char *strstr(const char *, const char *);
 
+/*
+ * The following definitions are not required by the OCaml runtime, but are
+ * needed to build the sqlite3 for mirage
+ */
+char *strrchr(const char *, int);
+int strncmp (const char *, const char *, size_t);
+size_t strcspn (const char *, const char *);
+
 #endif
