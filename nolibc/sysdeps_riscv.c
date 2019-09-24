@@ -69,10 +69,6 @@ int gettimeofday(struct timeval *tv, struct timezone *tz)
     if (tz != NULL) {
         memset(tz, 0, sizeof(*tz));
     }
-    char *d = (char*) malloc(8);
-    char *s = "GANESHA\n";
-    memcpy(d,s,8);
-    riscv_write(d,8);
     return 0;
 }
 
