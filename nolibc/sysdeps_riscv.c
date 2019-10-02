@@ -32,11 +32,11 @@ static size_t console_write(FILE *f __attribute__((unused)), const char *s,
 size_t console_read(FILE *f __attribute__((unused)), char *s,
         size_t l)
 {
-    riscv_read(s, l);
-    return l;
+    size_t n = riscv_read(s, l);
+    return n;
 }
 
-static FILE console = { .write = console_write; .read = console_read };
+static FILE console = { .write = console_write, .read = console_read };
 FILE *stderr = &console;
 FILE *stdout = &console;
 
