@@ -7,6 +7,7 @@
 struct _FILE;
 typedef struct _FILE {
     size_t (*write)(struct _FILE *f, const char *, size_t);
+    size_t (*read)(struct _FILE *f, char *, size_t);
     char *wpos;
     char *wend;
 } FILE;

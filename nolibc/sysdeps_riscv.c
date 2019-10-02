@@ -36,7 +36,7 @@ size_t console_read(FILE *f __attribute__((unused)), char *s,
     return l;
 }
 
-static FILE console = { .write = console_write };
+static FILE console = { .write = console_write; .read = console_read };
 FILE *stderr = &console;
 FILE *stdout = &console;
 
