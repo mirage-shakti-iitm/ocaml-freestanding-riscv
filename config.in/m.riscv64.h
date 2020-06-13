@@ -103,3 +103,6 @@
 /* #undef CAML_SAFE_STRING */
 
 /* #undef FLAT_FLOAT_ARRAY */
+#define INT64_LITERAL(s) s ## LL
+#define INT64_LITERAL(s) s ## LL
+#define INT64_LITERAL(s) s ## LL

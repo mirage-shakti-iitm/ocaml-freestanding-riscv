@@ -41,3 +41,6 @@
 //#define HAS_GETHOSTBYADDR_R 8
 //#define HAS_STACK_OVERFLOW_DETECTION
 #define HAS_SECURE_GETENV
+#define OCAML_OS_TYPE "freestanding"
+#define OCAML_OS_TYPE "freestanding"
+#define OCAML_OS_TYPE "freestanding"

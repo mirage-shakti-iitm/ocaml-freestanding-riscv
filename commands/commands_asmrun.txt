@@ -1,0 +1,104 @@
+mkdir -p build
+cp -r /home/sai/.opam/4.07.0/lib/ocaml-src-riscv /home/sai/ocaml-freestanding-riscv/build/ocaml
+cp config/s.h /home/sai/ocaml-freestanding-riscv/build/ocaml/byterun/caml/s.h
+cp config/m.riscv64.h /home/sai/ocaml-freestanding-riscv/build/ocaml/byterun/caml/m.h
+cp config/Makefile.Linux.riscv64 /home/sai/ocaml-freestanding-riscv/build/ocaml/config/Makefile
+/home/sai/ocaml-freestanding-riscv/build/ocaml/tools/make-version-header.sh > /home/sai/ocaml-freestanding-riscv/build/ocaml/byterun/caml/version.h
+make -C /home/sai/ocaml-freestanding-riscv/build/ocaml/asmrun \
+    UNIX_OR_WIN32=unix \
+    CFLAGS="-O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany" \
+    libasmrun.a
+make[1]: Entering directory '/home/sai/ocaml-freestanding-riscv/build/ocaml/asmrun'
+ln -s ../byterun/startup_aux.c startup_aux.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   startup_aux.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   startup.c
+ln -s ../byterun/main.c main.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   main.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   fail.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   roots.c
+ln -s ../byterun/signals.c signals.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   signals.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   signals_asm.c
+ln -s ../byterun/misc.c misc.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   misc.c
+ln -s ../byterun/freelist.c freelist.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   freelist.c
+ln -s ../byterun/major_gc.c major_gc.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   major_gc.c
+ln -s ../byterun/minor_gc.c minor_gc.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   minor_gc.c
+ln -s ../byterun/memory.c memory.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   memory.c
+ln -s ../byterun/alloc.c alloc.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   alloc.c
+ln -s ../byterun/compare.c compare.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   compare.c
+ln -s ../byterun/ints.c ints.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   ints.c
+ln -s ../byterun/floats.c floats.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   floats.c
+ln -s ../byterun/str.c str.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   str.c
+ln -s ../byterun/array.c array.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   array.c
+ln -s ../byterun/io.c io.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   io.c
+ln -s ../byterun/extern.c extern.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   extern.c
+ln -s ../byterun/intern.c intern.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   intern.c
+ln -s ../byterun/hash.c hash.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   hash.c
+ln -s ../byterun/sys.c sys.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   sys.c
+ln -s ../byterun/parsing.c parsing.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   parsing.c
+ln -s ../byterun/gc_ctrl.c gc_ctrl.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   gc_ctrl.c
+ln -s ../byterun/md5.c md5.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   md5.c
+ln -s ../byterun/obj.c obj.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   obj.c
+ln -s ../byterun/lexing.c lexing.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   lexing.c
+ln -s ../byterun/unix.c unix.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   unix.c
+ln -s ../byterun/printexc.c printexc.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   printexc.c
+ln -s ../byterun/callback.c callback.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   callback.c
+ln -s ../byterun/weak.c weak.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   weak.c
+ln -s ../byterun/compact.c compact.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   compact.c
+ln -s ../byterun/finalise.c finalise.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   finalise.c
+ln -s ../byterun/custom.c custom.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   custom.c
+ln -s ../byterun/globroots.c globroots.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   globroots.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   backtrace_prim.c
+ln -s ../byterun/backtrace.c backtrace.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   backtrace.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   natdynlink.c
+ln -s ../byterun/debugger.c debugger.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   debugger.c
+ln -s ../byterun/meta.c meta.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   meta.c
+ln -s ../byterun/dynlink.c dynlink.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   dynlink.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   clambda_checks.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   spacetime.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   spacetime_snapshot.c
+ln -s ../byterun/afl.c afl.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   afl.c
+ln -s ../byterun/bigarray.c bigarray.c
+riscv64-unknown-elf-gcc -c -O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding   bigarray.c
+riscv64-unknown-elf-gcc -c -DSYS_freestanding -I../byterun -DMODEL_riscv64 -o riscv.o riscv.S || \
+{ echo "If your assembler produced syntax errors, it is probably";\
+          echo "unhappy with the preprocessor. Check your assembler, or";\
+          echo "try producing riscv.o by hand.";\
+          exit 2; }
+rm -f libasmrun.a && riscv64-unknown-elf-ar rc libasmrun.a  startup_aux.o startup.o main.o fail.o roots.o signals.o signals_asm.o misc.o freelist.o major_gc.o minor_gc.o memory.o alloc.o compare.o ints.o floats.o str.o array.o io.o extern.o intern.o hash.o sys.o parsing.o gc_ctrl.o md5.o obj.o lexing.o unix.o printexc.o callback.o weak.o compact.o finalise.o custom.o globroots.o backtrace_prim.o backtrace.o natdynlink.o debugger.o meta.o dynlink.o clambda_checks.o spacetime.o spacetime_snapshot.o afl.o bigarray.o riscv.o && riscv64-unknown-elf-ranlib libasmrun.a
+make[1]: Leaving directory '/home/sai/ocaml-freestanding-riscv/build/ocaml/asmrun'
+

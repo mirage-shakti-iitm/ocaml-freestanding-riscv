@@ -1,0 +1,10 @@
+caml_next_frame_descriptor:255
+caml_alloc_backtrace_buffer:255
+caml_stash_backtrace:255
+caml_get_current_callstack:255
+caml_debuginfo_extract:255
+caml_debuginfo_next:255
+caml_debuginfo_location:255
+caml_add_debug_info:255
+caml_remove_debug_info:255
+caml_debug_info_available:255

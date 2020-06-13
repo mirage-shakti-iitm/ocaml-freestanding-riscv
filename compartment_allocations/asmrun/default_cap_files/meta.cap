@@ -1,0 +1,6 @@
+caml_get_global_data:255
+caml_get_section_table:255
+caml_realloc_global:255
+caml_invoke_traced_function:255
+caml_reify_bytecode:255
+caml_static_release_bytecode:255

@@ -1,0 +1,8 @@
+caml_MD5Init:255
+caml_MD5Transform:255
+caml_MD5Update:255
+caml_MD5Final:255
+caml_md5_string:255
+caml_md5_channel:255
+caml_md5_chan:255
+caml_md5_block:255

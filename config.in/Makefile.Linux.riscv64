@@ -288,3 +288,6 @@ ifeq "$(UNIX_OR_WIN32)" "win32"
       /link /subsystem:console $(OC_LDFLAGS) && ($(MERGEMANIFESTEXE))
   endif # ifeq "$(TOOLCHAIN)" "msvc"
 endif # ifeq "$(UNIX_OR_WIN32)" "win32"
+SYSTEM=freestanding
+SYSTEM=freestanding
+SYSTEM=freestanding

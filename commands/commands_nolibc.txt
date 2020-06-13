@@ -1,0 +1,34 @@
+mkdir -p /home/sai/ocaml-freestanding-riscv/build
+cp -r nolibc /home/sai/ocaml-freestanding-riscv/build
+echo '/* automatically added by configure.sh */' >> /home/sai/ocaml-freestanding-riscv/build/nolibc/stubs.c
+echo 'STUB_ABORT(caml_ba_map_file);' >> /home/sai/ocaml-freestanding-riscv/build/nolibc/stubs.c
+make -C /home/sai/ocaml-freestanding-riscv/build/nolibc \
+    "FREESTANDING_CFLAGS=-I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include" \
+    "SYSDEP_OBJS=sysdeps_riscv.o"
+make[1]: Entering directory '/home/sai/ocaml-freestanding-riscv/build/nolibc'
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o ctype.o ctype.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -fno-strict-aliasing   -c -o dtoa.o dtoa.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o memchr.o memchr.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o memcmp.o memcmp.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o memcpy.o memcpy.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o memmove.o memmove.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o memset.o memset.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o strcmp.o strcmp.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o strlen.o strlen.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o strtol.o strtol.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o strchr.o strchr.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o strchrnul.o strchrnul.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o strncpy.o strncpy.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o stpncpy.o stpncpy.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o strstr.o strstr.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o stubs.o stubs.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o vfprintf.o vfprintf.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o vsnprintf.o vsnprintf.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o snprintf.o snprintf.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o fprintf.o fprintf.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o printf.o printf.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o strrchr.o strrchr.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o strncmp.o strncmp.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o strcspn.o strcspn.c
+riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include   -c -o sysdeps_riscv.o sysdeps_riscv.c
+ar rcs libnolibc.a ctype.o dtoa.o memchr.o memcmp.o memcpy.o memmove.o memset.o strcmp.o strlen.o strtol.o strchr.o strchrnul.o strncpy.o stpncpy.o strstr.o stubs.o vfprintf.o vsnprintf.o snprintf.o fprintf.o printf.o strrchr.o strncmp.o strcspn.o  sysdeps_riscv.o

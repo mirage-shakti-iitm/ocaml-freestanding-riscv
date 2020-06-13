@@ -10,13 +10,14 @@ dev-repo: "git+https://github.com/mirage-shakti-iitm/ocaml-freestanding-riscv.gi
 build: [
   ["env" "BUILD_ARCH=riscv64" "PKG_CONFIG_PATH=%{prefix}%/share/pkgconfig" "./configure.sh"]
   ["env" "BUILD_ARCH=riscv64" "PKG_CONFIG_PATH=%{prefix}%/share/pkgconfig" make]
+  # env BUILD_ARCH=riscv64 PKG_CONFIG_PATH=/home/sai/.opam/4.07.0/share/pkgconfig ./configure.sh
+  # env BUILD_ARCH=riscv64 PKG_CONFIG_PATH=/home/sai/.opam/4.07.0/share/pkgconfig make
 ]
 install: [make "install" "PREFIX=%{prefix}%"]
 remove: [make "uninstall" "PREFIX=%{prefix}%"]
 depends: [
   "conf-pkg-config"
   "ocamlfind" {build}
-  "ocaml-src-riscv" {build}
   "ocaml" {>= "4.07.0"}
   "ocaml-riscv"
   "ocaml-boot-riscv"

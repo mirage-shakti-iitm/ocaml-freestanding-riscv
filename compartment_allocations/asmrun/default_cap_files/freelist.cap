@@ -1,0 +1,9 @@
+allocate_block:255
+truncate_flp:255
+caml_fl_allocate:255
+caml_fl_init_merge:255
+caml_fl_reset:255
+caml_fl_merge_block:255
+caml_fl_add_blocks:255
+caml_make_free_blocks:255
+caml_set_allocation_policy:255

@@ -1,0 +1,17 @@
+gen_final_invariant_check:255
+alloc_to_do:255
+generic_final_update:255
+generic_final_minor_update:255
+generic_final_register:255
+caml_final_update_mark_phase:255
+caml_final_update_clean_phase:255
+caml_final_do_calls:255
+caml_final_do_roots:255
+caml_final_invert_finalisable_values:255
+caml_final_oldify_young_roots:255
+caml_final_update_minor_roots:255
+caml_final_empty_young:255
+caml_final_register:255
+caml_final_register_called_without_value:255
+caml_final_release:255
+caml_final_invariant_check:255

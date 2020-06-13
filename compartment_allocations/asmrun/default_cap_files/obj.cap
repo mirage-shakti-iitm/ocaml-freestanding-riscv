@@ -1,0 +1,17 @@
+caml_static_alloc:255
+caml_static_free:255
+caml_static_resize:255
+caml_obj_is_block:255
+caml_obj_tag:255
+caml_obj_set_tag:255
+caml_obj_block:255
+caml_obj_dup:255
+caml_obj_truncate:255
+caml_obj_add_offset:255
+caml_lazy_follow_forward:255
+caml_lazy_make_forward:255
+caml_get_public_method:255
+caml_set_oo_id:255
+caml_fresh_oo_id:255
+caml_int_as_pointer:255
+caml_obj_reachable_words:255

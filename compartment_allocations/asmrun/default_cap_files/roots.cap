@@ -1,0 +1,17 @@
+count_descriptors:255
+frametables_list_tail:255
+next_frame_descr:255
+fill_hashtable:255
+remove_entry:255
+cons:255
+init_frame_descriptors:255
+caml_init_frame_descriptors:255
+caml_register_frametable:255
+caml_unregister_frametable:255
+caml_register_dyn_global:255
+caml_oldify_local_roots:255
+caml_darken_all_roots_slice:255
+caml_do_local_roots:255
+caml_do_roots:255
+caml_darken_all_roots_start:255
+caml_stack_usage:255
