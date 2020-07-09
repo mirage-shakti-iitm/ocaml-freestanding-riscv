@@ -1,0 +1,12 @@
+compare_free_stack:255
+compare_stack_overflow:255
+compare_resize_stack:255
+do_compare_val:255
+compare_val:255
+caml_compare:255
+caml_equal:255
+caml_notequal:255
+caml_lessthan:255
+caml_lessequal:255
+caml_greaterthan:255
+caml_greaterequal:255

@@ -1,0 +1,10 @@
+pop_arg:7
+out:7
+fmt_x:7
+fmt_o:7
+fmt_u:7
+getint:7
+pad:7
+fmt_fp:7
+printf_core:7
+vfprintf:7

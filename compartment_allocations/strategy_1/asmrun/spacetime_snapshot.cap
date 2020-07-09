@@ -1,0 +1,6 @@
+spacetime_disabled:255
+caml_spacetime_take_snapshot:255
+caml_spacetime_marshal_frame_table:255
+caml_spacetime_frame_table:255
+caml_spacetime_marshal_shape_table:255
+caml_spacetime_shape_table:255

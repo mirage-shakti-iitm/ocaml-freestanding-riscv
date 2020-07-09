@@ -1,0 +1,5 @@
+caml_alloc_custom:255
+caml_register_custom_operations:255
+caml_find_custom_operations:255
+caml_final_custom_operations:255
+caml_init_custom_operations:255

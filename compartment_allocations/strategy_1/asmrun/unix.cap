@@ -1,0 +1,15 @@
+caml_read_fd:255
+caml_write_fd:255
+caml_decompose_path:255
+caml_search_in_path:255
+caml_search_exe_in_path:255
+caml_search_dll_in_path:255
+caml_dlopen:255
+caml_dlclose:255
+caml_dlsym:255
+caml_globalsym:255
+caml_dlerror:255
+caml_read_directory:255
+caml_executable_name:255
+caml_secure_getenv:255
+caml_num_rows_fd:255

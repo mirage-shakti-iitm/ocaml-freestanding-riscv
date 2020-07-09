@@ -1,0 +1,10 @@
+hash_aux:255
+caml_hash_mix_uint32:255
+caml_hash_mix_intnat:255
+caml_hash_mix_int64:255
+caml_hash_mix_double:255
+caml_hash_mix_float:255
+caml_hash_mix_string:255
+caml_hash:255
+caml_hash_univ_param:255
+caml_hash_variant:255

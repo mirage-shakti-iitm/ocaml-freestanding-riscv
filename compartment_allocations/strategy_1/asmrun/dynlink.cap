@@ -1,0 +1,5 @@
+caml_dynlink_open_lib:255
+caml_dynlink_close_lib:255
+caml_dynlink_lookup_symbol:255
+caml_dynlink_add_primitive:255
+caml_dynlink_get_current_libs:255

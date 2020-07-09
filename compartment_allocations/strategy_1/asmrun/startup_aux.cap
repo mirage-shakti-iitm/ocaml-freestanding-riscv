@@ -1,0 +1,6 @@
+scanmult:255
+call_registered_value:255
+caml_init_atom_table:255
+caml_parse_ocamlrunparam:255
+caml_startup_aux:255
+caml_shutdown:255

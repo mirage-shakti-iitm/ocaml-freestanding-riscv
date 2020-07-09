@@ -1,0 +1,7 @@
+init_static:255
+caml_startup_common:255
+caml_startup_exn:255
+caml_startup:255
+caml_main:255
+caml_startup_pooled_exn:255
+caml_startup_pooled:255
