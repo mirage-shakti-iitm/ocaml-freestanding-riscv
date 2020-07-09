@@ -6,4 +6,4 @@ nolibc_src_dir="nolibc"
 asmrun_src_dir="asmrun"
 
 cp ${chosen_dir}/${asmrun_src_dir}/* ${asmrun_src_dir}/
-cp ${chosen_dir}/${nolibc_src_dir}* ${nolibc_src_dir}/
+cp ${chosen_dir}/${nolibc_src_dir}/* ${nolibc_src_dir}/
