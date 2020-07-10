@@ -1,4 +1,4 @@
-.PHONY: all clean clean-configure mrproper install generate-asm generate-initial-cap-tee
+.PHONY: all clean clean-configure mrproper install generate-asm generate-initial-cap-tee add-cap-files
 
 include Makeconf
 
@@ -12,6 +12,9 @@ FREESTANDING_LIBS=$(BUILD)/asmrun/libasmrun.a \
 endif
 
 all: $(FREESTANDING_LIBS) ocaml-freestanding-riscv.pc libs cflags
+
+add-cap-files:
+	./choose_compartment_strategy.sh $(COMPARTMENT_STRATEGY_CHOICE)
 
 nolibc: $(BUILD)/nolibc/libnolibc.a
 
