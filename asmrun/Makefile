@@ -111,4 +111,4 @@ add-checkcap: $(ASMS)
 	for f in $^; do postProcessing.py ./$$f; done
 
 libasmrun.a: generate-asm add-checkcap $(OBJS)
-  $(AR) rcs $@ $(OBJS)
+	$(AR) rcs $@ $(OBJS)
