@@ -28,7 +28,7 @@ MODEL=riscv64
 CPPFLAGS += -I. -DNATIVE_CODE -DTARGET_$(ARCH)
 CPPFLAGS += -DMODEL_$(MODEL)
 CPPFLAGS += -DSYS_$(SYSTEM) $(IFLEXDIR) $(LIBUNWIND_INCLUDE_FLAGS)
-CFLAGS += -g
+# CFLAGS += -g
 CFLAGS += $(OCAML_CFLAGS)
 
 ASPPFLAGS = -DSYS_$(SYSTEM) -I.
@@ -91,10 +91,10 @@ CAPS=startup_aux.cap startup.cap main.cap fail.cap		\
   $(ARCH).cap
 
 $(COBJS):%.o: %.s
-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
+	$(CC) -g $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
 $(ASMOBJS):%.o: %.s
-	$(CC) $(ASPPFLAGS) -o $@ -c $<
+	$(CC) -g $(ASPPFLAGS) -o $@ -c $<
 
 DFF=-O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding
 

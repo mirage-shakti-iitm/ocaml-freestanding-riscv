@@ -65,7 +65,7 @@ OBJS=ctype.o \
 dtoa.o: CFLAGS+=-fno-strict-aliasing
 
 $(OBJS):%.o: %.s
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) -g $(CFLAGS) -o $@ -c $<
 
 generate-asm: $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) -S

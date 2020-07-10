@@ -12,7 +12,7 @@ fi
 
 if [ -z "$FREESTANDING_CFLAGS" ]
 then
-    FREESTANDING_CFLAGS="$(pkg-config --cflags ${PKG_CONFIG_DEPS}) -mcmodel=medany -Og -g"
+    FREESTANDING_CFLAGS="$(pkg-config --cflags ${PKG_CONFIG_DEPS}) -mcmodel=medany -Og"
 fi
 
 if [ -z "$BUILD_ARCH" ]
