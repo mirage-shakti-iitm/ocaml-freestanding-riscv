@@ -61,6 +61,7 @@ OBJS=ctype.o \
      stubs.o \
      vfprintf.o vsnprintf.o snprintf.o fprintf.o printf.o \
      strrchr.o strncmp.o strcspn.o
+OBJS+=$(SYSDEP_OBJS)
 
 dtoa.o: CFLAGS+=-fno-strict-aliasing
 
@@ -76,5 +77,5 @@ generate-initial-cap-tee: generate-asm $(ASMS)
 add-checkcap: $(ASMS)
 	for f in $^; do postProcessing.py ./$$f; done
 
-libnolibc.a: generate-asm add-checkcap $(OBJS) $(SYSDEP_OBJS)
-	$(AR) rcs $@ $(OBJS) $(SYSDEP_OBJS)
+libnolibc.a: generate-asm add-checkcap $(OBJS)
+	$(AR) rcs $@ $(OBJS)
