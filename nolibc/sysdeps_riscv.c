@@ -62,7 +62,7 @@ void abort(void)
 
 int gettimeofday(struct timeval *tv, struct timezone *tz)
 {
-    riscv_write("gettimeofday() not supported on risc-v\n", 39);
+    // riscv_write("gettimeofday() not supported on risc-v\n", 39);
     if (tv != NULL) {
         memset(tv, 0, sizeof(*tv));
     }
