@@ -14,7 +14,7 @@ caml_system__code_begin:
 
         .align 2
         .globl caml_call_gc
-        .type caml_call_gc, @function
+        .type	caml_call_gc, @function
 caml_call_gc:
 
         sd ra, caml_last_return_address, t0
@@ -142,7 +142,7 @@ caml_call_gc:
 
         .align 2
         .globl caml_c_call
-        .type caml_c_call, @function
+        .type	caml_c_call, @function
 caml_c_call:
 
         mv s2, ra
@@ -164,7 +164,7 @@ caml_c_call:
 
         .align 2
         .globl caml_raise_exn
-        .type caml_raise_exn, @function
+        .type	caml_raise_exn, @function
 caml_raise_exn:
 
         lw t1, caml_backtrace_active
@@ -189,13 +189,13 @@ caml_raise_exn:
         .size caml_raise_exn, .-caml_raise_exn
 
         .globl caml_reraise_exn
-        .type caml_reraise_exn, @function
+        .type	caml_reraise_exn, @function
 
 
 
         .align 2
         .globl caml_raise_exception
-        .type caml_raise_exception, @function
+        .type	caml_raise_exception, @function
 caml_raise_exception:
         ld s1, caml_exception_pointer
         ld s10, caml_young_ptr
@@ -222,7 +222,7 @@ caml_raise_exception:
 
         .align 2
         .globl caml_start_program
-        .type caml_start_program, @function
+        .type	caml_start_program, @function
 caml_start_program:
 
         la t2, caml_program
@@ -328,7 +328,7 @@ caml_start_program:
 
         .align 2
         .globl caml_callback_exn
-        .type caml_callback_exn, @function
+        .type	caml_callback_exn, @function
 caml_callback_exn:
 
         mv t1, a0
@@ -340,7 +340,7 @@ caml_callback_exn:
 
         .align 2
         .globl caml_callback2_exn
-        .type caml_callback2_exn, @function
+        .type	caml_callback2_exn, @function
 caml_callback2_exn:
 
         mv t1, a0
@@ -353,7 +353,7 @@ caml_callback2_exn:
 
         .align 2
         .globl caml_callback3_exn
-        .type caml_callback3_exn, @function
+        .type	caml_callback3_exn, @function
 caml_callback3_exn:
 
 
@@ -368,7 +368,7 @@ caml_callback3_exn:
 
         .align 2
         .globl caml_ml_array_bound_error
-        .type caml_ml_array_bound_error, @function
+        .type	caml_ml_array_bound_error, @function
 caml_ml_array_bound_error:
 
         la t2, caml_array_bound_error
@@ -383,7 +383,7 @@ caml_system__code_end:
         .section .data
         .align 3
         .globl caml_system__frametable
-        .type caml_system__frametable, @object
+        .type	caml_system__frametable, @object
 caml_system__frametable:
         .quad 1
         .quad .Lcaml_retaddr

@@ -62,7 +62,8 @@ COBJS=startup_aux.o startup.o main.o fail.o		\
   clambda_checks.o spacetime.o spacetime_snapshot.o		\
   afl.o bigarray.o
 ASMOBJS=$(ARCH).o
-OBJS=$(COBJS) $(ASMOBJS)
+OBJS=$(COBJS)
+OBJS+=$(ASMOBJS)
 
 ASMS=startup_aux.s startup.s main.s fail.s		\
   roots.s signals.s signals_asm.s misc.s freelist.s	\
@@ -110,5 +111,5 @@ generate-initial-cap-tee: generate-asm $(ASMS)
 add-checkcap: $(ASMS)
 	for f in $^; do postProcessing.py ./$$f; done
 
-libasmrun.a: generate-asm add-checkcap $(OBJS)
-	$(AR) rcs $@ $(OBJS)
+libasmrun.a: generate-asm add-checkcap $(OBJS) # $(ASMOBJS)
+	$(AR) rcs $@ $(OBJS)  # $(ASMOBJS)
