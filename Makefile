@@ -30,7 +30,7 @@ $(BUILD)/runtime/Makefile:
 	echo '#define OCAML_OS_TYPE "None"' >> $(BUILD)/runtime/caml/s.h
 
 # OCAML_CFLAGS=-O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD $(FREESTANDING_CFLAGS) -mcmodel=medany
-OCAML_CFLAGS=-O2 -fno-strict-aliasing -fwrapv -Wall -DHAS_UNISTD $(FREESTANDING_CFLAGS) -mcmodel=medany
+OCAML_CFLAGS=-O2 -fno-strict-aliasing -fwrapv -Wall -DSYS_linux -DHAS_UNISTD $(FREESTANDING_CFLAGS) -mcmodel=medany
 $(BUILD)/runtime/libasmrun.a: $(BUILD)/runtime/Makefile $(OCAML_EXTRA_DEPS)
 	$(MAKE) -C $(BUILD)/runtime UNIX_OR_WIN32=unix OCAML_CFLAGS="$(OCAML_CFLAGS)" libasmrun.a
 
