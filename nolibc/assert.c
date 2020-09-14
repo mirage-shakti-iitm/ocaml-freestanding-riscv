@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
-
+#include <ocaml-boot-riscv.h>
 /*
  * These functions deliberately do not call printf() or malloc() in order to
  * abort as quickly as possible without triggering further errors.
