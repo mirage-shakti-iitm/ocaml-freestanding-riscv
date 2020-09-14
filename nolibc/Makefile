@@ -16,7 +16,7 @@ endif
 CC=riscv64-unknown-elf-gcc
 AR=riscv64-unknown-elf-ar
 
-CFLAGS=-O2 -std=c99 -Wall -Wno-parentheses -Werror -nostdinc
+CFLAGS=-O2 -std=c99 -Wall -Wno-parentheses -Werror # -nostdinc
 CFLAGS+=$(FREESTANDING_CFLAGS)
 
 ASM_FLAGS=
