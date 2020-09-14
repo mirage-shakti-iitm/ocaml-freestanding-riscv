@@ -25,10 +25,10 @@ mkdir -p ${DESTINC}/caml
 # Assume OCaml >= 4.06.0 here.
 OCAML_INCLUDES="${OCAML_INCLUDES} bigarray.h m.h s.h"
 for f in ${OCAML_INCLUDES}; do
-    cp build/asmrun/caml/${f} ${DESTINC}/caml/${f}
+    cp build/runtime/caml/${f} ${DESTINC}/caml/${f}
 done
 
-cp build/asmrun/libasmrun.a ${DESTLIB}/libasmrun.a
+cp build/runtime/libasmrun.a ${DESTLIB}/libasmrun.a
 
 # META: ocamlfind and other build utilities test for existance ${DESTLIB}/META
 # when figuring out whether a library is installed

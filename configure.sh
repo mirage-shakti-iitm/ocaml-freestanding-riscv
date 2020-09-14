@@ -36,53 +36,9 @@ if [ ! -f config.in/Makefile.${BUILD_OS}.${BUILD_ARCH} ]; then
     exit 1
 fi
 
-cp -r config.in config
-OCAML_GTE_4_06_0=no
-OCAML_GTE_4_07_0=yes
-# case $(ocamlopt -version) in
-#     4.04.[1-9]|4.04.[1-9]+*)
-#         OCAML_EXTRA_DEPS=${BUILD_PATH}/ocaml/byterun/caml/version.h
-#         echo '#define OCAML_OS_TYPE "freestanding"' >> config/s.h
-#         echo '#define INT64_LITERAL(s) s ## LL' >> config/m.${BUILD_ARCH}.h
-#         ;;
-#     4.05.[0-9]|4.05.[0-9]+*)
-#         OCAML_EXTRA_DEPS=${BUILD_PATH}/ocaml/byterun/caml/version.h
-#         echo '#define OCAML_OS_TYPE "freestanding"' >> config/s.h
-#         echo '#define INT64_LITERAL(s) s ## LL' >> config/m.${BUILD_ARCH}.h
-#         # Use __ANDROID__ here to disable the AFL code, otherwise we'd have to
-#         # add many more stubs to ocaml-freestanding.
-#         echo 'afl.o: CFLAGS+=-D__ANDROID__' >> config/Makefile.${BUILD_OS}.${BUILD_ARCH}
-#         ;;
-#     4.06.[0-9]|4.06.[0-9]+*)
-#         OCAML_GTE_4_06_0=yes
-#         OCAML_EXTRA_DEPS=${BUILD_PATH}/ocaml/byterun/caml/version.h
-#         echo '#define OCAML_OS_TYPE "freestanding"' >> config/s.h
-#         echo '#define INT64_LITERAL(s) s ## LL' >> config/m.${BUILD_ARCH}.h
-#         echo 'SYSTEM=freestanding' >> config/Makefile.${BUILD_OS}.${BUILD_ARCH}
-#         ;;
-#     4.07.[0-9]|4.07.[0-9]+*)
-#         OCAML_GTE_4_06_0=yes
-#         OCAML_GTE_4_07_0=yes
-#         # OCAML_EXTRA_DEPS=${BUILD_PATH}/ocaml/byterun/caml/version.h
-#         echo '#define OCAML_OS_TYPE "freestanding"' >> config/s.h
-#         echo '#define INT64_LITERAL(s) s ## LL' >> config/m.${BUILD_ARCH}.h
-#         echo 'SYSTEM=freestanding' >> config/Makefile.${BUILD_OS}.${BUILD_ARCH}
-#         ;;
-#     *)
-#         echo "ERROR: Unsupported OCaml version: $(ocamlopt -version)." 1>&2
-#         exit 1
-#         ;;
-# esac
-
-PKG_CONFIG_EXTRA_LIBS=
-if [ $OCAML_GTE_4_07_0 = "no" ] ; then
-    PKG_CONFIG_EXTRA_LIBS="-lotherlibs"
-fi
-
-if [ "${BUILD_ARCH}" = "aarch64" ]; then
-    PKG_CONFIG_EXTRA_LIBS="$PKG_CONFIG_EXTRA_LIBS $(gcc -print-libgcc-file-name)" || exit 1
-fi
-
+# cp -r config.in config
+# OCAML_GTE_4_06_0=no
+# OCAML_GTE_4_07_0=yes
 
 cat <<EOM >Makeconf
 FREESTANDING_CFLAGS=${FREESTANDING_CFLAGS}

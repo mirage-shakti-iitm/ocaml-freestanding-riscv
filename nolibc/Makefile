@@ -1,5 +1,11 @@
 .phony: generate-asm generate-initial-cap-tee add-checkap
 
+#Flags:
+# FREESTANDING_CFLAGS=-ffreestanding -nostdinc -isystem /home/sai/.opam/4.11.1+shakti-tee/lib/pkgconfig/../../include/solo5-bindings-hvt/crt -I/home/sai/.opam/4.11.1+shakti-tee/lib/pkgconfig/../../include/solo5-bindings-hvt/solo5 -I/home/sai/Shakti-TEE-Practical/mirage-shakti/ocaml-freestanding-0.6.2/nolibc/include -include _freestanding/overrides.h -I/home/sai/Shakti-TEE-Practical/mirage-shakti/ocaml-freestanding-0.6.2/openlibm/src -I/home/sai/Shakti-TEE-Practical/mirage-shakti/ocaml-freestanding-0.6.2/openlibm/include" 
+# cc -O2 -std=c99 -Wall -Wno-parentheses -Werror -ffreestanding -fstack-protector-strong -nostdinc -mstack-protector-guard=global -isystem /home/sai/.opam/4.11.1+shakti-tee/lib/pkgconfig/../../include/solo5-bindings-hvt/crt -I/home/sai/.opam/4.11.1+shakti-tee/lib/pkgconfig/../../include/solo5-bindings-hvt/solo5 -I/home/sai/Shakti-TEE-Practical/mirage-shakti/ocaml-freestanding-0.6.2/nolibc/include -include _freestanding/overrides.h -I/home/sai/Shakti-TEE-Practical/mirage-shakti/ocaml-freestanding-0.6.2/openlibm/src -I/home/sai/Shakti-TEE-Practical/mirage-shakti/ocaml-freestanding-0.6.2/openlibm/include -fno-strict-aliasing   -c -o dtoa.o dtoa.c
+# riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -isystem /home/sai/Shakti-TEE-Practical/mirage-shakti/ocaml-freestanding-riscv/nolibc/include
+
+
 ifeq ($(FREESTANDING_CFLAGS),)
     $(error FREESTANDING_CFLAGS not set)
 endif
@@ -10,7 +16,7 @@ endif
 CC=riscv64-unknown-elf-gcc
 AR=riscv64-unknown-elf-ar
 
-CFLAGS=-O2 -std=c99 -Wall -Wno-parentheses -Werror
+CFLAGS=-O2 -std=c99 -Wall -Wno-parentheses -Werror -nostdinc
 CFLAGS+=$(FREESTANDING_CFLAGS)
 
 ASM_FLAGS=
@@ -31,6 +37,7 @@ SRCS=ctype.c \
      stubs.c \
      vfprintf.c vsnprintf.c snprintf.c fprintf.c printf.c \
      strrchr.c strncmp.c strcspn.c \
+     assert.c \
      sysdeps_riscv.c
 
 ASMS=ctype.s \
@@ -41,6 +48,7 @@ ASMS=ctype.s \
      stubs.s \
      vfprintf.s vsnprintf.s snprintf.s fprintf.s printf.s \
      strrchr.s strncmp.s strcspn.s \
+     assert.s \
      sysdeps_riscv.s
 
 CAPS=ctype.cap \
@@ -51,6 +59,7 @@ CAPS=ctype.cap \
      stubs.cap \
      vfprintf.cap vsnprintf.cap snprintf.cap fprintf.cap printf.cap \
      strrchr.cap strncmp.cap strcspn.cap \
+     assert.cap \
      sysdeps_riscv.cap
 
 OBJS=ctype.o \
@@ -60,7 +69,8 @@ OBJS=ctype.o \
      strstr.o \
      stubs.o \
      vfprintf.o vsnprintf.o snprintf.o fprintf.o printf.o \
-     strrchr.o strncmp.o strcspn.o
+     strrchr.o strncmp.o strcspn.o \
+     assert.o
 OBJS+=$(SYSDEP_OBJS)
 
 dtoa.o: CFLAGS+=-fno-strict-aliasing
