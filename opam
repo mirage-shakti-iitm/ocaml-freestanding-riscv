@@ -1,5 +1,5 @@
 opam-version: "2.0"
-version: "0.4.2"
+version: "0.6.2"
 maintainer: "Sai Venkata Krishnan <saiganesha5.svkv@gmail.com>"
 authors: "Martin Lucina <martin@lucina.net>"
 homepage: "https://github.com/mirage-shakti-iitm/ocaml-freestanding-riscv"
