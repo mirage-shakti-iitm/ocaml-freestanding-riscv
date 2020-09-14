@@ -79,7 +79,7 @@ uninstall:
 	./uninstall.sh
 
 clean-configure:
-	rm -rf config Makeconf ocaml-freestanding-riscv.pc
+	rm -rf Makeconf ocaml-freestanding-riscv.pc
 
 clean:
 	rm -rf $(BUILD)/nolibc $(BUILD)/runtime

@@ -31,14 +31,6 @@ if [ "${BUILD_ARCH}" = "amd64" ]; then
     BUILD_ARCH="x86_64"
 fi
 
-if [ ! -f config.in/Makefile.${BUILD_OS}.${BUILD_ARCH} ]; then
-    echo "ERROR: Unsupported build OS/architecture combination: ${BUILD_OS}/${BUILD_ARCH}" 1>&2
-    exit 1
-fi
-
-# cp -r config.in config
-# OCAML_GTE_4_06_0=no
-# OCAML_GTE_4_07_0=yes
 
 cat <<EOM >Makeconf
 FREESTANDING_CFLAGS=${FREESTANDING_CFLAGS}
