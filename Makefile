@@ -21,8 +21,8 @@ nolibc: $(BUILD)/nolibc/libnolibc.a
 asmrun: $(BUILD)/runtime/libasmrun.a
 
 $(BUILD)/runtime/Makefile:
-	mkdir -p build
-	cp -r runtime/* $(BUILD)/runtime
+	mkdir -p $(BUILD)
+	cp -r runtime $(BUILD)
 	echo '#define HAS_GETTIMEOFDAY' >> $(BUILD)/runtime/caml/s.h
 	echo '#define HAS_SECURE_GETENV' >> $(BUILD)/runtime/caml/s.h
 	echo '#define HAS_TIMES' >> $(BUILD)/runtime/caml/s.h
