@@ -19,8 +19,7 @@ remove: [make "uninstall" "PREFIX=%{prefix}%"]
 depends: [
   "conf-pkg-config"
   "ocamlfind" {build}
-  "ocaml" {>= "4.07.0"}
-  "ocaml-riscv"
+  "ocaml-riscv" {> "4.07.0"}
   "ocaml-boot-riscv"
 ]
 substs: [
