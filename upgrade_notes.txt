@@ -1,0 +1,4 @@
+Not upgrading these files as part of 0.6.2:
+1). include/endian.h
+2). include/_freestanding/*
+3). include/sys/param.h
