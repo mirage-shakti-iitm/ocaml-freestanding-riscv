@@ -27,6 +27,7 @@
 #define STORE sd
 #define LOAD ld
 
+#define FUNCTION_SECTIONS
 
 #if defined(FUNCTION_SECTIONS)
 #define TEXT_SECTION(name) .section .text.caml.##name,"ax",%progbits
