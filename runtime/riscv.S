@@ -43,17 +43,6 @@
 name:
 
 
-#if defined(FUNCTION_SECTIONS)
-        TEXT_SECTION(caml_hot__code_begin)
-        .globl  caml_hot__code_begin
-caml_hot__code_begin:
-
-        TEXT_SECTION(caml_hot__code_end)
-        .globl  caml_hot__code_end
-caml_hot__code_end:
-#endif
-
-
         .set    domain_curr_field, 0
 #define DOMAIN_STATE(c_type, name) \
         .equ    domain_field_caml_##name, domain_curr_field ; \
@@ -73,6 +62,17 @@ caml_hot__code_end:
 #endif
 
         .section        .text
+
+#if defined(FUNCTION_SECTIONS)
+        TEXT_SECTION(caml_hot__code_begin)
+        .globl  caml_hot__code_begin
+caml_hot__code_begin:
+
+        TEXT_SECTION(caml_hot__code_end)
+        .globl  caml_hot__code_end
+caml_hot__code_end:
+#endif
+
 /* Invoke the garbage collector. */
 
         .globl  caml_system__code_begin
