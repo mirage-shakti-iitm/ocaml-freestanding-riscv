@@ -1,0 +1,5 @@
+handle_signal:255
+caml_garbage_collection:255
+caml_set_signal_action:255
+caml_init_signals:255
+caml_setup_stack_overflow_detection:255
