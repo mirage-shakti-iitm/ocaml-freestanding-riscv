@@ -133,5 +133,5 @@ generate-initial-cap-tee: generate-asm $(ASMS)
 add-checkcap: $(ASMS)
 	for f in $^; do postProcessing.py ./$$f; done
 
-libasmrun.a: generate-initial-cap-tee add-checkcap $(OBJS) # $(ASMOBJS)
+libasmrun.a: generate-asm $(OBJS) # $(ASMOBJS)
 	$(AR) rcs $@ $(OBJS)  # $(ASMOBJS)

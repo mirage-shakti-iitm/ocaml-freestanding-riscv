@@ -1,5 +1,0 @@
-add_char:255
-add_string:255
-caml_format_exception:255
-default_fatal_uncaught_exception:255
-caml_fatal_uncaught_exception:255

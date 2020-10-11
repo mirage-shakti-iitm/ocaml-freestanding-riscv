@@ -50,18 +50,7 @@ ASMS=ctype.s \
      strrchr.s strncmp.s strcspn.s \
      assert.s \
      sysdeps_riscv.s
-
-CAPS=ctype.cap \
-     dtoa.cap \
-     memchr.cap memcmp.cap memcpy.cap memmove.cap memset.cap \
-     strcmp.cap strlen.cap strtol.cap strchr.cap strchrnul.cap strncpy.cap stpncpy.cap \
-     strstr.cap \
-     stubs.cap \
-     vfprintf.cap vsnprintf.cap snprintf.cap fprintf.cap printf.cap \
-     strrchr.cap strncmp.cap strcspn.cap \
-     assert.cap \
-     sysdeps_riscv.cap
-
+     
 OBJS=ctype.o \
      dtoa.o \
      memchr.o memcmp.o memcpy.o memmove.o memset.o \
@@ -75,7 +64,7 @@ OBJS+=$(SYSDEP_OBJS)
 
 dtoa.o: CFLAGS+=-fno-strict-aliasing
 
-$(OBJS):%.o: %.s
+$(OBJS):%.o: %.c
 	$(CC) -g $(CFLAGS) -o $@ -c $<
 
 generate-asm: $(SRCS)
@@ -87,5 +76,5 @@ generate-initial-cap-tee: generate-asm $(ASMS)
 add-checkcap: $(ASMS)
 	for f in $^; do postProcessing.py ./$$f; done
 
-libnolibc.a: generate-asm add-checkcap $(OBJS)
+libnolibc.a: $(OBJS)
 	$(AR) rcs $@ $(OBJS)

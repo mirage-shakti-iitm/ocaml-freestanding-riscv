@@ -1,8 +1,0 @@
-Val_handle:255
-getsym:255
-caml_natdynlink_getmap:255
-caml_natdynlink_globals_inited:255
-caml_natdynlink_open:255
-caml_natdynlink_run:255
-caml_natdynlink_run_toplevel:255
-caml_natdynlink_loadsym:255

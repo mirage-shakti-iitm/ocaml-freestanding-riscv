@@ -1,2 +1,0 @@
-caml_setup_afl:255
-caml_reset_afl_instrumentation:255

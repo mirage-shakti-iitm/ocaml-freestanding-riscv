@@ -1,7 +1,0 @@
-init_compact_allocate:255
-compact_allocate:255
-invert_pointer_at:255
-caml_invert_root:255
-do_compaction:255
-caml_compact_heap:255
-caml_compact_heap_maybe:255
