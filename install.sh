@@ -4,8 +4,8 @@ prefix=${1:-$PREFIX}
 if [ "$prefix" = "" ]; then
     prefix=`opam config var prefix`
 fi
-DESTINC=${prefix}/include/ocaml-freestanding-riscv
-DESTLIB=${prefix}/lib/ocaml-freestanding-riscv
+DESTINC=${prefix}/riscv-sysroot/include/ocaml-freestanding-riscv
+DESTLIB=${prefix}/riscv-sysroot/lib/ocaml-freestanding-riscv
 mkdir -p ${DESTINC} ${DESTLIB}
 
 # "nolibc"
@@ -35,7 +35,7 @@ cp build/runtime/libasmrun.a ${DESTLIB}/libasmrun.a
 touch ${DESTLIB}/META
 
 # pkg-config
-mkdir -p ${prefix}/lib/pkgconfig
-cp ocaml-freestanding-riscv.pc ${prefix}/lib/pkgconfig/ocaml-freestanding-riscv.pc
+mkdir -p ${prefix}/riscv-sysroot/lib/pkgconfig
+cp ocaml-freestanding-riscv.pc ${prefix}/riscv-sysroot/lib/pkgconfig/ocaml-freestanding-riscv.pc
 cp cflags ${DESTLIB}
 cp libs ${DESTLIB}

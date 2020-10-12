@@ -1,7 +1,7 @@
 prefix=${pcfiledir}/../..
 exec_prefix=${prefix}
-includedir=${prefix}/include/ocaml-freestanding
-libdir=${exec_prefix}/lib/ocaml-freestanding
+includedir=${prefix}/riscv-sysroot/include/ocaml-freestanding-riscv
+libdir=${exec_prefix}/riscv-sysroot/lib/ocaml-freestanding-riscv
 
 Name: ocaml-freestanding
 Version: 1.0.0

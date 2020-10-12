@@ -61,14 +61,14 @@ libs: libs.tmp Makeconf
 	    libs.tmp > libs.tmp2
 	for PKG in $(PKG_CONFIG_DEPS); do \
 		echo " " >> libs.tmp2;\
-		env PKG_CONFIG_PATH=$(shell opam config var prefix)/share/pkgconfig pkg-config $$PKG --libs >> libs.tmp2;\
+		pkg-config $$PKG --libs >> libs.tmp2;\
 	done
 	echo "("`cat libs.tmp2`")" > libs
 
 cflags: cflags.tmp Makeconf
 	for PKG in $(PKG_CONFIG_DEPS); do \
 		echo " " >> cflags.tmp;\
-		env PKG_CONFIG_PATH=$(shell opam config var prefix)/share/pkgconfig pkg-config $$PKG --cflags >> cflags.tmp;\
+		pkg-config $$PKG --cflags >> cflags.tmp;\
 	done
 	echo "("`cat cflags.tmp`")" > cflags
 

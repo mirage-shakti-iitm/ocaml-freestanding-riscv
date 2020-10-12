@@ -1,1 +1,1 @@
--I%{prefix}%/include/ocaml-freestanding-riscv
+-I%{prefix}%/riscv-sysroot/include/ocaml-freestanding-riscv
