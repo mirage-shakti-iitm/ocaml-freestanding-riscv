@@ -22,11 +22,13 @@ OCAML_INCLUDES="alloc.h callback.h config.h custom.h fail.h hash.h intext.h \
   memory.h misc.h mlvalues.h printexc.h signals.h compatibility.h"
 mkdir -p ${DESTINC}/caml
 
-# Assume OCaml >= 4.06.0 here.
-OCAML_INCLUDES="${OCAML_INCLUDES} bigarray.h m.h s.h"
-for f in ${OCAML_INCLUDES}; do
-    cp build/runtime/caml/${f} ${DESTINC}/caml/${f}
-done
+# # Assume OCaml >= 4.06.0 here.
+# OCAML_INCLUDES="${OCAML_INCLUDES} bigarray.h m.h s.h"
+# for f in ${OCAML_INCLUDES}; do
+#     cp build/runtime/caml/${f} ${DESTINC}/caml/${f}
+# done
+
+cp build/runtime/caml/* ${DESTINC}/caml/
 
 cp build/runtime/libasmrun.a ${DESTLIB}/libasmrun.a
 
