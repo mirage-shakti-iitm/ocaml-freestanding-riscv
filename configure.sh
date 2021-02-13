@@ -1,5 +1,7 @@
 #!/bin/sh
 
+PKG_CONFIG_PATH := $(shell opam config var prefix)/riscv-sysroot/lib/pkgconfig
+
 if pkg-config --exists ocaml-boot-riscv
 then
     PKG_CONFIG_DEPS="ocaml-boot-riscv"
