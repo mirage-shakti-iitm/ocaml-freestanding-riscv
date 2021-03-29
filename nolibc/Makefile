@@ -6,13 +6,6 @@
 # riscv64-unknown-elf-gcc -O2 -std=c99 -Wall -Wno-parentheses -Werror -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -isystem /home/sai/Shakti-TEE-Practical/mirage-shakti/ocaml-freestanding-riscv/nolibc/include
 
 
-ifeq ($(FREESTANDING_CFLAGS),)
-    $(error FREESTANDING_CFLAGS not set)
-endif
-ifeq ($(SYSDEP_OBJS),)
-    $(error SYSDEP_OBJS not set)
-endif
-
 CC=riscv64-unknown-elf-gcc
 AR=riscv64-unknown-elf-ar
 
@@ -70,13 +63,10 @@ OBJS=ctype.o \
      stubs.o \
      vfprintf.o vsnprintf.o snprintf.o fprintf.o printf.o \
      strrchr.o strncmp.o strcspn.o \
-     assert.o
-OBJS+=$(SYSDEP_OBJS)
+     assert.o \
+     sysdeps_riscv.o
 
 dtoa.o: CFLAGS+=-fno-strict-aliasing
-
-$(OBJS):%.o: %.s
-	$(CC) -g $(CFLAGS) -o $@ -c $<
 
 generate-asm: $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) -S
@@ -89,3 +79,6 @@ add-checkcap: $(ASMS)
 
 libnolibc.a: generate-asm add-checkcap $(OBJS)
 	$(AR) rcs $@ $(OBJS)
+
+$(OBJS):%.o: %.s
+	$(CC) -g $(CFLAGS) -o $@ -c $<
