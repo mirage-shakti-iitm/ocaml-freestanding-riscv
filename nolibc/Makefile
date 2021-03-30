@@ -80,5 +80,8 @@ add-checkcap: $(ASMS)
 libnolibc.a: generate-asm add-checkcap $(OBJS)
 	$(AR) rcs $@ $(OBJS)
 
+libnolibc_normal.a: generate-asm $(OBJS)
+	$(AR) rcs $@ $(OBJS)
+
 $(OBJS):%.o: %.s
 	$(CC) -g $(CFLAGS) -o $@ -c $<

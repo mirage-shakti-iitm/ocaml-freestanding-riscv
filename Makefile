@@ -1,4 +1,4 @@
-.PHONY: all clean clean-configure mrproper install generate-asm generate-initial-cap-tee add-cap-files
+.PHONY: all clean clean-configure mrproper install generate-asm generate-initial-cap-tee add-cap-files libnolibc_no_compartments
 
 include Makeconf
 
@@ -21,6 +21,9 @@ $(BUILD)/nolibc/Makefile:
 NOLIBC_CFLAGS=$(FREESTANDING_CFLAGS)
 $(BUILD)/nolibc/libnolibc.a: $(BUILD)/nolibc/Makefile 
 	$(MAKE) -C $(BUILD)/nolibc "FREESTANDING_CFLAGS=$(NOLIBC_CFLAGS)" libnolibc.a
+
+libnolibc_no_compartments: $(BUILD)/nolibc/Makefile 
+	$(MAKE) -C $(BUILD)/nolibc "FREESTANDING_CFLAGS=$(NOLIBC_CFLAGS)" libnolibc_normal.a
 
 generate-asm: $(BUILD)/nolibc/Makefile
 	$(MAKE) -C $(BUILD)/nolibc "FREESTANDING_CFLAGS=$(NOLIBC_CFLAGS)" generate-asm
