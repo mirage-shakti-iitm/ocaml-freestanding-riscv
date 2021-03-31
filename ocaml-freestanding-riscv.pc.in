@@ -7,6 +7,6 @@ Name: ocaml-freestanding
 Version: 1.0.0
 URL: https://github.com/mirage/ocaml-freestanding/
 Description: Freestanding OCaml runtime
-Cflags: -I${includedir} -I${includedir}/_freestanding/overrides.h -ffreestanding -fstack-protector-strong -nostdinc -isystem
+Cflags: -I${includedir} -I${includedir}/_freestanding/overrides.h -ffreestanding -fstack-protector-strong -isystem
 Libs: -L${libdir} -lasmrun -lnolibc -lm @@PKG_CONFIG_EXTRA_LIBS@@
 Requires: @@PKG_CONFIG_DEPS@@
