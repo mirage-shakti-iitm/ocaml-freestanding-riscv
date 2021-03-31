@@ -22,13 +22,10 @@ depends: [
   "ocaml-boot-riscv"
 ]
 substs: [
-  "cflags.tmp"
-  "libs.tmp"
+  "flags/cflags.tmp"
+  "flags/libs.tmp"
 ]
-extra-files: [
-  ["cflags.tmp.in" "md5=d0b86fe0e81e0adce0b0098dba77ef9a"]
-  ["libs.tmp.in" "md5=30bd7458eb618332e03406b3de9908a6"]
-] 
+ 
 synopsis: "Freestanding OCaml runtime"
 description:
   "This package provides a freestanding OCaml runtime (asmrun), suitable for linking with a unikernel base layer. Modified for RiscV"

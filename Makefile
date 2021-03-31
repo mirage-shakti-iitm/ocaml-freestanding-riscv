@@ -11,7 +11,7 @@ FREESTANDING_LIBS=$(BUILD)/runtime/libasmrun.a \
 		  $(BUILD)/nolibc/libnolibc.a
 # endif
 
-all: $(FREESTANDING_LIBS) ocaml-freestanding-riscv.pc libs cflags
+all: $(FREESTANDING_LIBS) ocaml-freestanding-riscv.pc flags/libs flags/cflags
 
 add-cap-files:
 	./choose_compartment_strategy.sh $(COMPARTMENT_STRATEGY_CHOICE)
@@ -56,21 +56,27 @@ ocaml-freestanding-riscv.pc: ocaml-freestanding-riscv.pc.in
 	    -e 's!@@PKG_CONFIG_EXTRA_LIBS@@!$(PKG_CONFIG_EXTRA_LIBS)!' \
 	    ocaml-freestanding-riscv.pc.in > $@
 
-libs: libs.tmp Makeconf
-	sed -e 's!@@PKG_CONFIG_EXTRA_LIBS@@!$(PKG_CONFIG_EXTRA_LIBS)!' \
-	    libs.tmp > libs.tmp2
-	for PKG in $(PKG_CONFIG_DEPS); do \
-		echo " " >> libs.tmp2;\
-		pkg-config $$PKG --libs >> libs.tmp2;\
-	done
-	echo "("`cat libs.tmp2`")" > libs
+flags/libs.tmp: flags/libs.tmp.in
+	opam config subst $@
 
-cflags: cflags.tmp Makeconf
-	for PKG in $(PKG_CONFIG_DEPS); do \
-		echo " " >> cflags.tmp;\
-		pkg-config $$PKG --cflags >> cflags.tmp;\
-	done
-	echo "("`cat cflags.tmp`")" > cflags
+flags/libs: flags/libs.tmp Makeconf
+	env PKG_CONFIG_PATH="$(shell opam config var prefix)/lib/pkgconfig" \
+	    pkg-config $(PKG_CONFIG_DEPS) --libs >> $<
+	awk -v RS= -- '{ \
+	    sub("@@PKG_CONFIG_EXTRA_LIBS@@", "$(PKG_CONFIG_EXTRA_LIBS)", $$0); \
+	    print "(", $$0, ")" \
+	    }' $< >$@
+
+flags/cflags.tmp: flags/cflags.tmp.in
+	opam config subst $@
+
+flags/cflags: flags/cflags.tmp Makeconf
+	env PKG_CONFIG_PATH="$(shell opam config var prefix)/lib/pkgconfig" \
+	    pkg-config $(PKG_CONFIG_DEPS) --cflags >> $<
+	awk -v RS= -- '{ \
+	    print "(", $$0, ")" \
+	    }' $< >$@
+
 
 install: all
 	./install.sh
