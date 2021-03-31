@@ -60,7 +60,7 @@ flags/libs.tmp: flags/libs.tmp.in
 	opam config subst $@
 
 flags/libs: flags/libs.tmp Makeconf
-	env PKG_CONFIG_PATH="$(shell opam config var prefix)/lib/pkgconfig" \
+	env PKG_CONFIG_PATH="$(shell opam config var prefix)/riscv-sysroot/lib/pkgconfig" \
 	    pkg-config $(PKG_CONFIG_DEPS) --libs >> $<
 	awk -v RS= -- '{ \
 	    sub("@@PKG_CONFIG_EXTRA_LIBS@@", "$(PKG_CONFIG_EXTRA_LIBS)", $$0); \
@@ -71,7 +71,7 @@ flags/cflags.tmp: flags/cflags.tmp.in
 	opam config subst $@
 
 flags/cflags: flags/cflags.tmp Makeconf
-	env PKG_CONFIG_PATH="$(shell opam config var prefix)/lib/pkgconfig" \
+	env PKG_CONFIG_PATH="$(shell opam config var prefix)/riscv-sysroot/lib/pkgconfig" \
 	    pkg-config $(PKG_CONFIG_DEPS) --cflags >> $<
 	awk -v RS= -- '{ \
 	    print "(", $$0, ")" \
