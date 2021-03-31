@@ -1,1 +1,1 @@
--I%{prefix}%/riscv-sysroot/include/ocaml-freestanding-riscv
+-I%{prefix}%/riscv-sysroot/include/ocaml-freestanding-riscv -include _freestanding/overrides.h -ffreestanding -fstack-protector-strong -nostdinc -mstack-protector-guard=global -isystem

@@ -26,7 +26,7 @@ substs: [
   "libs.tmp"
 ]
 extra-files: [
-  ["cflags.tmp.in" "md5=a5cc9f5c04e5d96b0f2b6f62f8a165e1"]
+  ["cflags.tmp.in" "md5=d0b86fe0e81e0adce0b0098dba77ef9a"]
   ["libs.tmp.in" "md5=30bd7458eb618332e03406b3de9908a6"]
 ] 
 synopsis: "Freestanding OCaml runtime"
