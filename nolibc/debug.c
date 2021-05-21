@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <shakti_ms/fat_pointer.h>
 #define IV 0xdeadbeef1ee7c0d3;
 
 __int128 craft(unsigned int ptr, unsigned int base, unsigned int bound, unsigned int id);
