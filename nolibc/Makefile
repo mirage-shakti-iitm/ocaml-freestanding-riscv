@@ -35,7 +35,7 @@ SRCS=ctype.c \
      strcmp.c strlen.c strtol.c strchr.c strchrnul.c strncpy.c stpncpy.c \
      strstr.c \
      stubs.c \
-     vfprintf.c vsnprintf.c snprintf.c fprintf.c printf.c \
+     vfprintf.c vsnprintf.c snprintf.c fprintf.c printf.c puts.c \
      strrchr.c strncmp.c strcspn.c \
      assert.c \
      sysdeps_riscv.c \
@@ -47,7 +47,7 @@ ASMS=ctype.s \
      strcmp.s strlen.s strtol.s strchr.s strchrnul.s strncpy.s stpncpy.s \
      strstr.s \
      stubs.s \
-     vfprintf.s vsnprintf.s snprintf.s fprintf.s printf.s \
+     vfprintf.s vsnprintf.s snprintf.s fprintf.s printf.s puts.s \
      strrchr.s strncmp.s strcspn.s \
      assert.s \
      sysdeps_riscv.s \
@@ -59,7 +59,7 @@ OBJS=ctype.o \
      strcmp.o strlen.o strtol.o strchr.o strchrnul.o strncpy.o stpncpy.o \
      strstr.o \
      stubs.o \
-     vfprintf.o vsnprintf.o snprintf.o fprintf.o printf.o \
+     vfprintf.o vsnprintf.o snprintf.o fprintf.o printf.o puts.o \
      strrchr.o strncmp.o strcspn.o \
      assert.o \
      craft.o debug.o
