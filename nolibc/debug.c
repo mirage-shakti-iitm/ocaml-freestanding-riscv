@@ -17,23 +17,23 @@ unsigned int hash_fn(unsigned long long i64)
 {
 	unsigned int ret = (unsigned int)i64;
 	ret = ret ^ (unsigned int)(i64 >> 32);
-	//printf("Hash function called\ncook = %llx\nhash = %x\n",i64,ret);
+	printf("Hash function called\ncook = %llx\nhash = %x\n",i64,ret);
 	return ret;
 }
 
-/*unsigned int hash_fn_debug(unsigned long long i64)
+unsigned int hash_fn_debug(unsigned long long i64)
 {
 	unsigned int ret = (unsigned int)i64;
 	ret = ret ^ (unsigned int)(i64 >> 32);
 	//printf("Hash function called\ncook = %llx\nhash = %x\n",i64,ret);
 	return ret;
-}*/
+}
 
 unsigned long long hash(unsigned long long *cook_ptr)
 {
-	//printf("\n--------\nHASH 0x%llx\n--------\n",(unsigned long long)cook_ptr);
+	printf("\n--------\nHASH 0x%llx\n--------\n",(unsigned long long)cook_ptr);
 	*cook_ptr = random64();
-	//printf("Setting cookie %llx at address %llx\nhash = %x\n",*cook_ptr,(unsigned long long int)cook_ptr,hash_fn_debug(*cook_ptr));
+	printf("Setting cookie %llx at address %llx\nhash = %x\n",*cook_ptr,(unsigned long long int)cook_ptr,hash_fn_debug(*cook_ptr));
 	return hash_fn(*cook_ptr);
 	//return 0;
 }
@@ -48,15 +48,15 @@ void printptr(__int128 fpr){
 void val(unsigned long long hi, unsigned long long lo)
 {
 	printf("\n--------\nVAL 0x%016llx%llx\n--------\n",hi,lo);
-	// printf("BOUND:BASE  %016llx\n", (unsigned long long int) (hi));
-	// printf("IDHASH:PTR  %016llx\n", (unsigned long long int) lo);
+	printf("BOUND:BASE  %016llx\n", (unsigned long long int) (hi));
+	printf("IDHASH:PTR  %016llx\n", (unsigned long long int) lo);
 	unsigned int hash = ((lo & 0xffffffff00000000) >> 32);
 	unsigned long long *base = (unsigned long long*) ((hi) & 0x00000000ffffffff);
 	//void *ptr = (void *)((unsigned long long)lo & 0x7fffffff);// fpr;
 	unsigned long long *ptr = (unsigned long long *)(lo & 0xffffffff);// fpr;
 	unsigned long long *bound = (unsigned long long *)((hi & 0xffffffff00000000) >> 32);
 
-	// printf(" base : %llx\n bound : %llx\n pointer : %llx\n hash: %x\n",(unsigned long long)base,(unsigned long long)bound,(unsigned long long)ptr,hash);
+	printf(" base : %llx\n bound : %llx\n pointer : %llx\n hash: %x\n",(unsigned long long)base,(unsigned long long)bound,(unsigned long long)ptr,hash);
 	if(base == NULL)
 	{
 		printf("!!!!VALIDATE ERROR\ngot NULL pointer for base");
