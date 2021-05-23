@@ -62,7 +62,7 @@ void val(unsigned long long hi, unsigned long long lo)
 		printf("!!!!VALIDATE ERROR\ngot NULL pointer for base");
 		//printf("BOUND:BASE  %016llx\n", (unsigned long long int) (hi));
 		//printf("IDHASH:PTR  %016llx\n", (unsigned long long int) lo);
-		//exit(0);
+		exit(0);
 		return ;
 	}
 	if(hash != hash_fn(*base))
@@ -70,12 +70,12 @@ void val(unsigned long long hi, unsigned long long lo)
 		
 		printf("!!!!VALIDATE ERROR\ngot hash %x from %08llx\nexpected %x",hash,(unsigned long long)base,hash_fn(*base));
 		printf("Validate error for hash\n");
-		//exit(0);
+		exit(0);
 		return ;
 	}
 	if((unsigned long long *)ptr < base || ptr >= bound){
 		printf("Validate Error !! pointer access out of range \n");
-		//exit(0);
+		exit(0);
 		return;
 	}
 	return;
