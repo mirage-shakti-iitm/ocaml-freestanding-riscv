@@ -47,7 +47,7 @@ void printptr(__int128 fpr){
 
 void val(unsigned long long hi, unsigned long long lo)
 {
-	// printf("\n--------\nVAL 0x%016llx%llx\n--------\n",hi,lo);
+	printf("\n--------\nVAL 0x%016llx%llx\n--------\n",hi,lo);
 	// printf("BOUND:BASE  %016llx\n", (unsigned long long int) (hi));
 	// printf("IDHASH:PTR  %016llx\n", (unsigned long long int) lo);
 	unsigned int hash = ((lo & 0xffffffff00000000) >> 32);
