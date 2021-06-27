@@ -85,7 +85,9 @@ __int128 safemalloc(unsigned long s)
 {
 	s+=8;
 	register void *ptr = malloc(s);
-	unsigned long long cook_hash = hash(ptr);
+	register unsigned long long cook_hash;
+	// unsigned long long cook_hash = hash(ptr);
+	__asm__ __volatile__("hash %0, %1" : "=r" (cook_hash) : "r" (ptr));
 	__int128 ret = craft((unsigned int)(ptr+8), (unsigned int)ptr, (unsigned int)(ptr+s), cook_hash);
 //	ptr = (unsigned int)cook_hash;
 	//printf("Malloc got size %lu, pointer %llx\n",s-8,(unsigned long long)ptr);
@@ -96,8 +98,10 @@ void safefree(__int128 fpr)
 {
 	//printf("free BOUND:BASE  %016llx\n", (unsigned long long int) (fpr >> 64));
 	//printf("free IDHASH:PTR  %016llx\n", (unsigned long long int) fpr);
-	void* ptr_high = (void*)(fpr>>64);
-	val((unsigned long long)(ptr_high),(unsigned long long)fpr);
+	
+	register void* ptr_high = (void*)(fpr>>64);
+	__asm__ __volatile__("val x0, %0, %1" : : "r" (ptr_high), "r" (fpr));
+	// val((unsigned long long)(ptr_high),(unsigned long long)fpr);
 	//ptr_high = (void*)((unsigned long long)ptr & 0x7fffffff);
 	void *ptr = (void *)((unsigned long long)fpr & 0xffffffff);// fpr;
 	//printf("FREE called with %llx\n",(unsigned long long)ptr);
