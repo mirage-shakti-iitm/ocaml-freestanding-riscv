@@ -1,0 +1,8 @@
+random64:254
+hash_fn:254
+hash_fn_debug:254
+hash:254
+printptr:254
+val:254
+safemalloc:254
+safefree:254

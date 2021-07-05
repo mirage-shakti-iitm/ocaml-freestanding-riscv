@@ -38,7 +38,8 @@ SRCS=ctype.c \
      vfprintf.c vsnprintf.c snprintf.c fprintf.c printf.c \
      strrchr.c strncmp.c strcspn.c \
      assert.c \
-     sysdeps_riscv.c
+     sysdeps_riscv.c \
+     craft.c debug.c
 
 ASMS=ctype.s \
      dtoa.s \
@@ -49,7 +50,8 @@ ASMS=ctype.s \
      vfprintf.s vsnprintf.s snprintf.s fprintf.s printf.s \
      strrchr.s strncmp.s strcspn.s \
      assert.s \
-     sysdeps_riscv.s
+     sysdeps_riscv.s \
+     craft.s debug.s
 
 CAPS=ctype.cap \
      dtoa.cap \
@@ -60,7 +62,8 @@ CAPS=ctype.cap \
      vfprintf.cap vsnprintf.cap snprintf.cap fprintf.cap printf.cap \
      strrchr.cap strncmp.cap strcspn.cap \
      assert.cap \
-     sysdeps_riscv.cap
+     sysdeps_riscv.cap \
+     craft.cap debug.cap
 
 OBJS=ctype.o \
      dtoa.o \
@@ -70,7 +73,9 @@ OBJS=ctype.o \
      stubs.o \
      vfprintf.o vsnprintf.o snprintf.o fprintf.o printf.o \
      strrchr.o strncmp.o strcspn.o \
-     assert.o
+     assert.o \
+     craft.o debug.o
+
 OBJS+=$(SYSDEP_OBJS)
 
 dtoa.o: CFLAGS+=-fno-strict-aliasing
