@@ -4,8 +4,8 @@ prefix=${1:-$PREFIX}
 if [ "$prefix" = "" ]; then
     prefix=`opam config var prefix`
 fi
-DESTINC=${prefix}/include/ocaml-freestanding-riscv
-DESTLIB=${prefix}/lib/ocaml-freestanding-riscv
+DESTINC=${prefix}/riscv-sysroot/include/ocaml-freestanding-riscv
+DESTLIB=${prefix}/riscv-sysroot/lib/ocaml-freestanding-riscv
 mkdir -p ${DESTINC} ${DESTLIB}
 
 # "nolibc"
@@ -22,11 +22,13 @@ OCAML_INCLUDES="alloc.h callback.h config.h custom.h fail.h hash.h intext.h \
   memory.h misc.h mlvalues.h printexc.h signals.h compatibility.h"
 mkdir -p ${DESTINC}/caml
 
-# Assume OCaml >= 4.06.0 here.
-OCAML_INCLUDES="${OCAML_INCLUDES} bigarray.h m.h s.h"
-for f in ${OCAML_INCLUDES}; do
-    cp build/runtime/caml/${f} ${DESTINC}/caml/${f}
-done
+# # Assume OCaml >= 4.06.0 here.
+# OCAML_INCLUDES="${OCAML_INCLUDES} bigarray.h m.h s.h"
+# for f in ${OCAML_INCLUDES}; do
+#     cp build/runtime/caml/${f} ${DESTINC}/caml/${f}
+# done
+
+cp build/runtime/caml/* ${DESTINC}/caml/
 
 cp build/runtime/libasmrun.a ${DESTLIB}/libasmrun.a
 
@@ -35,7 +37,7 @@ cp build/runtime/libasmrun.a ${DESTLIB}/libasmrun.a
 touch ${DESTLIB}/META
 
 # pkg-config
-mkdir -p ${prefix}/lib/pkgconfig
-cp ocaml-freestanding-riscv.pc ${prefix}/lib/pkgconfig/ocaml-freestanding-riscv.pc
-cp cflags ${DESTLIB}
-cp libs ${DESTLIB}
+mkdir -p ${prefix}/riscv-sysroot/lib/pkgconfig
+cp ocaml-freestanding-riscv.pc ${prefix}/riscv-sysroot/lib/pkgconfig/ocaml-freestanding-riscv.pc
+cp flags/cflags ${DESTLIB}
+cp flags/libs ${DESTLIB}
