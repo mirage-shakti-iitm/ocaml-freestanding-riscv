@@ -13,11 +13,15 @@ ifeq ($(SYSDEP_OBJS),)
     $(error SYSDEP_OBJS not set)
 endif
 
-CC=riscv64-unknown-elf-gcc
+CC=clang
 AR=riscv64-unknown-elf-ar
 
 CFLAGS=-O2 -std=c99 -Wall -Wno-parentheses -Werror # -nostdinc
 CFLAGS+=$(FREESTANDING_CFLAGS)
+CFLAGS+=--gcc-toolchain=$(RISCV) -march=rv64gc
+
+COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -cap-file-path -mllvm /home/sai/Shakti-TEE-Practical/mirage-shakti/ocaml-freestanding-riscv/compartment_allocations/strategy_1/nolibc
+CFLAGS+=$(COMPARTMENT_FLAGS)
 
 ASM_FLAGS=
 
@@ -80,8 +84,8 @@ OBJS+=$(SYSDEP_OBJS)
 
 dtoa.o: CFLAGS+=-fno-strict-aliasing
 
-$(OBJS):%.o: %.s
-	$(CC) -g $(CFLAGS) -o $@ -c $<
+$(OBJS):%.o: %.c
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 generate-asm: $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) -S
@@ -92,5 +96,5 @@ generate-initial-cap-tee: generate-asm $(ASMS)
 add-checkcap: $(ASMS)
 	for f in $^; do postProcessing.py ./$$f; done
 
-libnolibc.a: generate-asm add-checkcap $(OBJS)
+libnolibc.a: $(OBJS)
 	$(AR) rcs $@ $(OBJS)

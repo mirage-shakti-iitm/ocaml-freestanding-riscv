@@ -9,7 +9,7 @@ tags: "org:mirage"
 dev-repo: "git+https://github.com/mirage-shakti-iitm/ocaml-freestanding-riscv.git"
 build: [
   ["env" "BUILD_ARCH=riscv64" "PKG_CONFIG_PATH=%{prefix}%/share/pkgconfig" "./configure.sh"]
-  ["env" "BUILD_ARCH=riscv64" "PKG_CONFIG_PATH=%{prefix}%/share/pkgconfig" make "add-cap-files"]
+  # ["env" "BUILD_ARCH=riscv64" "PKG_CONFIG_PATH=%{prefix}%/share/pkgconfig" make "add-cap-files"]
   ["env" "BUILD_ARCH=riscv64" "PKG_CONFIG_PATH=%{prefix}%/share/pkgconfig" make]
   # env BUILD_ARCH=riscv64 PKG_CONFIG_PATH=/home/sai/.opam/4.07.0/share/pkgconfig ./configure.sh
   # env BUILD_ARCH=riscv64 PKG_CONFIG_PATH=/home/sai/.opam/4.07.0/share/pkgconfig make
