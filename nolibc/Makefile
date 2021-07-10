@@ -16,7 +16,7 @@ endif
 CC=clang
 AR=riscv64-unknown-elf-ar
 
-CFLAGS=-O2 -std=c99 -Wall -Wno-parentheses -Werror # -nostdinc
+CFLAGS=-O2 -std=c99 -Wall -Wno-parentheses -Werror -Wno-void-pointer-to-int-cast # -nostdinc
 CFLAGS+=$(FREESTANDING_CFLAGS)
 CFLAGS+=--gcc-toolchain=$(RISCV) -march=rv64gc
 
