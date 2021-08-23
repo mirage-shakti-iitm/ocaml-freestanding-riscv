@@ -3,7 +3,7 @@
 include Makeconf
 
 TOP=$(abspath .)
-FREESTANDING_CFLAGS+=-isystem $(TOP)/nolibc/include -ffunction-sections
+FREESTANDING_CFLAGS+=-isystem $(TOP)/nolibc/include
 BUILD=$(abspath $(BUILD_PATH))
 
 # ifeq ($(OCAML_GTE_4_07_0),yes)
