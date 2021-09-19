@@ -34,7 +34,7 @@
 # rm -f libasmrun.a && riscv64-unknown-linux-gnu-ar rc libasmrun.a  startup_aux_n.o startup_nat_n.o main_n.o fail_nat_n.o roots_nat_n.o signals_n.o signals_nat_n.o misc_n.o freelist_n.o major_gc_n.o minor_gc_n.o memory_n.o alloc_n.o compare_n.o ints_n.o floats_n.o str_n.o array_n.o io_n.o extern_n.o intern_n.o hash_n.o sys_n.o parsing_n.o gc_ctrl_n.o eventlog_n.o md5_n.o obj_n.o lexing_n.o unix_n.o printexc_n.o callback_n.o weak_n.o compact_n.o finalise_n.o custom_n.o globroots_n.o backtrace_nat_n.o backtrace_n.o dynlink_nat_n.o debugger_n.o meta_n.o dynlink_n.o clambda_checks_n.o spacetime_nat_n.o spacetime_snapshot_n.o afl_n.o bigarray_n.o memprof_n.o domain_n.o riscv.o && riscv64-unknown-linux-gnu-ranlib libasmrun.a
 
 
-.phony: generate-asm generate-initial-cap-tee add-checkap
+.phony: generate-asm generate-initial-cap-tee add-checkap generate-riscv-obj
 
 
 CC=riscv64-unknown-elf-gcc
@@ -49,7 +49,6 @@ MODEL=riscv64
 CPPFLAGS += -I. -DNATIVE_CODE -DTARGET_$(ARCH)
 CPPFLAGS += -DMODEL_$(MODEL)
 CPPFLAGS += -DSYS_$(SYSTEM) $(IFLEXDIR) $(LIBUNWIND_INCLUDE_FLAGS)
-# CFLAGS += -g
 CFLAGS += $(OCAML_CFLAGS)
 CFLAGS += -Wdeclaration-after-statement -fno-common -DCAML_NAME_SPACE
 
@@ -113,13 +112,17 @@ CAPS=startup_aux.cap startup_nat.cap main.cap fail_nat.cap		\
   afl.cap bigarray.cap eventlog.cap memprof.cap domain.cap \
   $(ARCH).cap
 
-$(COBJS):%.o: %.s
-	$(CC) -g $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
+$(COBJS):%.o: %.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
 $(ASMOBJS):%.o: %.s
-	$(CC) -g $(ASPPFLAGS) -o $@ -c $<
+	$(CC) $(ASPPFLAGS) -o $@ -c $<
 
 # DFF=-O2 -fno-strict-aliasing -fwrapv -Wall -USYS_linux -DHAS_UNISTD -I/home/sai/.opam/4.07.0/include -mcmodel=medany -Og -g -isystem /home/sai/ocaml-freestanding-riscv/nolibc/include -mcmodel=medany -I../byterun -DNATIVE_CODE -DTARGET_riscv -DMODEL_riscv64 -DSYS_freestanding
+
+generate-riscv-obj: riscv.S
+	$(CC) $(ASPPFLAGS) $(ASMSRCS) -S > riscv.s
+	$(CC) $(ASPPFLAGS) -o riscv.o -c riscv.s  
 
 generate-asm: $(CSRCS) $(ASMSRCS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(CSRCS) -S
@@ -133,5 +136,5 @@ generate-initial-cap-tee: generate-asm $(ASMS)
 add-checkcap: $(ASMS)
 	for f in $^; do postProcessing.py ./$$f; done
 
-libasmrun.a: generate-initial-cap-tee add-checkcap $(OBJS) # $(ASMOBJS)
+libasmrun.a: $(COBJS) generate-riscv-obj # $(ASMOBJS)
 	$(AR) rcs $@ $(OBJS)  # $(ASMOBJS)
