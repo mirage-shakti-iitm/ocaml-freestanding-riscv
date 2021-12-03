@@ -81,6 +81,21 @@ void val(unsigned long long hi, unsigned long long lo)
 	return;
 }
 
+
+__int128 saferealloc(__int128 fpr, unsigned long new_sz){
+
+	new_sz += 8;
+	register void* ptr_high = (void*)(fpr>>64);
+	__asm__ __volatile__("val %0, %1" : : "r" (ptr_high), "r" (fpr));
+	void *ptr = (void *)((unsigned long long)fpr & 0xffffffff);
+	ptr = ptr - 8;
+	register void *ptr_new = realloc(ptr, new_sz);
+	register unsigned long long cook_hash;
+	__asm__ __volatile__("hash %0, %1" : "=r" (cook_hash) : "r" (ptr_new));
+	__int128 ret = craft((unsigned int)(ptr_new+8), (unsigned int)ptr_new, (unsigned int)(ptr_new+new_sz), cook_hash);
+	return ret;
+}
+
 __int128 safemalloc(unsigned long s)
 {
 	s+=8;
