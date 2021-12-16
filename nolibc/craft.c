@@ -1,7 +1,7 @@
 #include <stdio.h>
 __int128 craft(unsigned int ptr, unsigned int base, unsigned int bound, unsigned int id)
 {
-	//printf("Called craft ptr = %x, base = %x\n",ptr, base);
+	printf("Called craft ptr = %x, base = %x, bound = %x, id = %x\n",ptr, base, bound, id);
 	__int128 ret;
 	ret = ptr;
 	ret ^= ((__int128)id << 32);
