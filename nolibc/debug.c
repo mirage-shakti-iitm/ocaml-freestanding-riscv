@@ -83,7 +83,7 @@ void val(unsigned long long hi, unsigned long long lo)
 
 
 __int128 saferealloc(__int128 fpr, unsigned long new_sz){
-
+	printf("Realloc got size %lu, pointer %llx\n", new_sz,(unsigned long long)fpr);
 	new_sz += 8;
 	register void* ptr_high = (void*)(fpr>>64);
 	__asm__ __volatile__("val %0, %1" : : "r" (ptr_high), "r" (fpr));
