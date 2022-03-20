@@ -13,6 +13,7 @@ typedef struct _FILE {
 int fflush(FILE *);
 int fprintf(FILE *, const char *, ...);
 int printf(const char *, ...);
+int putchar(int);
 int rename(const char *, const char *);
 extern FILE *stdout;
 extern FILE *stderr;

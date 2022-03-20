@@ -43,7 +43,7 @@ SRCS=ctype.c \
      strrchr.c strncmp.c strcspn.c \
      assert.c \
      sysdeps_riscv.c \
-     craft.c debug.c
+     craft.c debug.c putchar.c
 
 ASMS=ctype.s \
      dtoa.s \
@@ -55,7 +55,7 @@ ASMS=ctype.s \
      strrchr.s strncmp.s strcspn.s \
      assert.s \
      sysdeps_riscv.s \
-     craft.s debug.s
+     craft.s debug.s putchar.s
 
 CAPS=ctype.cap \
      dtoa.cap \
@@ -67,7 +67,7 @@ CAPS=ctype.cap \
      strrchr.cap strncmp.cap strcspn.cap \
      assert.cap \
      sysdeps_riscv.cap \
-     craft.cap debug.cap
+     craft.cap debug.cap putchar.cap
 
 OBJS=ctype.o \
      dtoa.o \
@@ -78,7 +78,7 @@ OBJS=ctype.o \
      vfprintf.o vsnprintf.o snprintf.o fprintf.o printf.o \
      strrchr.o strncmp.o strcspn.o \
      assert.o \
-     craft.o debug.o
+     craft.o debug.o putchar.o
 
 OBJS+=$(SYSDEP_OBJS)
 
