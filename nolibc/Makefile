@@ -22,7 +22,7 @@ CFLAGS+=--gcc-toolchain=$(RISCV) -march=rv64gc
 
 COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -default-compartment-id -mllvm 1
 # COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -cap-file-path -mllvm /home/sai/Shakti-TEE-Practical/mirage-shakti/ocaml-freestanding-riscv/compartment_allocations/strategy_1/nolibc
-# CFLAGS+=$(COMPARTMENT_FLAGS)
+CFLAGS+=$(COMPARTMENT_FLAGS)
 
 ASM_FLAGS=
 
