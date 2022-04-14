@@ -49,10 +49,9 @@ MODEL=riscv64
 CPPFLAGS += -I. -DNATIVE_CODE -DTARGET_$(ARCH)
 CPPFLAGS += -DMODEL_$(MODEL)
 CPPFLAGS += -DSYS_$(SYSTEM) $(IFLEXDIR) $(LIBUNWIND_INCLUDE_FLAGS)
-CFLAGS += $(OCAML_CFLAGS) -Wno-tautological-constant-out-of-range-compare
+CFLAGS += $(OCAML_CFLAGS)
 CFLAGS += -Wdeclaration-after-statement -fno-common -DCAML_NAME_SPACE
 
-CFLAGS+=-O2 -std=c99 -Wall -Wno-parentheses -Werror -Wno-void-pointer-to-int-cast # -nostdinc
 CFLAGS+=--gcc-toolchain=$(RISCV) -march=rv64gc
 
 COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -default-compartment-id -mllvm 1 -ffunction-sections
