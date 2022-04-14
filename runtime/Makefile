@@ -52,7 +52,7 @@ CPPFLAGS += -DSYS_$(SYSTEM) $(IFLEXDIR) $(LIBUNWIND_INCLUDE_FLAGS)
 CFLAGS += $(OCAML_CFLAGS)
 CFLAGS += -Wdeclaration-after-statement -fno-common -DCAML_NAME_SPACE
 
-CFLAGS+=--gcc-toolchain=$(RISCV) -march=rv64gc
+CFLAGS+=--gcc-toolchain=$(RISCV) -march=rv64gc -mabi=lp64d
 
 COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -default-compartment-id -mllvm 1 -ffunction-sections
 # COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -cap-file-path -mllvm /home/sai/Shakti-TEE-Practical/mirage-shakti/ocaml-freestanding-riscv/compartment_allocations/strategy_1/nolibc
