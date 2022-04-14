@@ -37,10 +37,10 @@
 .phony: generate-asm generate-initial-cap-tee add-checkap generate-riscv-obj
 
 
-CC=riscv64-unknown-elf-gcc
+CC=clang
 AR=riscv64-unknown-elf-ar
 RANLIB=riscv64-unknown-elf-ranlib
-ASPP=riscv64-unknown-elf-gcc -c
+ASPP=clang -c
 
 ARCH=riscv
 SYSTEM=freestanding
@@ -51,6 +51,13 @@ CPPFLAGS += -DMODEL_$(MODEL)
 CPPFLAGS += -DSYS_$(SYSTEM) $(IFLEXDIR) $(LIBUNWIND_INCLUDE_FLAGS)
 CFLAGS += $(OCAML_CFLAGS)
 CFLAGS += -Wdeclaration-after-statement -fno-common -DCAML_NAME_SPACE
+
+CFLAGS+=-O2 -std=c99 -Wall -Wno-parentheses -Werror -Wno-void-pointer-to-int-cast # -nostdinc
+CFLAGS+=--gcc-toolchain=$(RISCV) -march=rv64gc
+
+COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -default-compartment-id -mllvm 1 -ffunction-sections
+# COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -cap-file-path -mllvm /home/sai/Shakti-TEE-Practical/mirage-shakti/ocaml-freestanding-riscv/compartment_allocations/strategy_1/nolibc
+CFLAGS+=$(COMPARTMENT_FLAGS)
 
 ASPPFLAGS = -DSYS_$(SYSTEM) -I.
 ifeq "$(UNIX_OR_WIN32)" "unix"
