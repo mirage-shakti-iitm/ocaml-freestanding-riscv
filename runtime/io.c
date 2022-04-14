@@ -566,7 +566,7 @@ CAMLprim value caml_ml_close_channel(value vchannel)
 CAMLprim value caml_ml_channel_size(value vchannel)
 {
   file_offset size = caml_channel_size(Channel(vchannel));
-  if (size > Max_long) { errno = EOVERFLOW; caml_sys_error(NO_ARG); }
+  // if (size > Max_long) { errno = EOVERFLOW; caml_sys_error(NO_ARG); }
   return Val_long(size);
 }
 
@@ -712,7 +712,7 @@ CAMLprim value caml_ml_seek_out_64(value vchannel, value pos)
 CAMLprim value caml_ml_pos_out(value vchannel)
 {
   file_offset pos = caml_pos_out(Channel(vchannel));
-  if (pos > Max_long) { errno = EOVERFLOW; caml_sys_error(NO_ARG); }
+  // if (pos > Max_long) { errno = EOVERFLOW; caml_sys_error(NO_ARG); }
   return Val_long(pos);
 }
 
@@ -808,7 +808,7 @@ CAMLprim value caml_ml_seek_in_64(value vchannel, value pos)
 CAMLprim value caml_ml_pos_in(value vchannel)
 {
   file_offset pos = caml_pos_in(Channel(vchannel));
-  if (pos > Max_long) { errno = EOVERFLOW; caml_sys_error(NO_ARG); }
+  // if (pos > Max_long) { errno = EOVERFLOW; caml_sys_error(NO_ARG); }
   return Val_long(pos);
 }
 
