@@ -35,6 +35,7 @@
 #include "caml/memprof.h"
 #include "caml/eventlog.h"
 
+
 int caml_huge_fallback_count = 0;
 /* Number of times that mmapping big pages fails and we fell back to small
    pages. This counter is available to the program through
@@ -271,6 +272,7 @@ char *caml_alloc_for_heap (asize_t request)
     void *block;
 
     request = ((request + Page_size - 1) >> Page_log) << Page_log;
+    // printf(">>>>>>>>>>>>>>>>>>>>>>>> caml_alloc_for_heap : <%x, %x>\n", request, sizeof (heap_chunk_head));
     mem = caml_stat_alloc_aligned_noexc (request + sizeof (heap_chunk_head),
                                          sizeof (heap_chunk_head), &block);
     if (mem == NULL) return NULL;
@@ -372,6 +374,8 @@ static value *expand_heap (mlsize_t request)
   CAMLassert (request <= Max_wosize);
   over_request = request + request / 100 * caml_percent_free;
   malloc_request = caml_clip_heap_chunk_wsz (over_request);
+
+  // printf(">>>>>>>>>>>>>>>>>>>>>>>> expand_heap : <%x, %x>\n", request, Bsize_wsize (malloc_request)); 
   mem = (value *) caml_alloc_for_heap (Bsize_wsize (malloc_request));
   if (mem == NULL){
     caml_gc_message (0x04, "No room for growing heap\n");
@@ -483,12 +487,13 @@ Caml_inline value caml_alloc_shr_aux (mlsize_t wosize, tag_t tag, int track,
   CAML_EV_ALLOC(wosize);
   hp = caml_fl_allocate (wosize);
   if (hp == NULL){
+    printf(">>>>>>>>>>>>>>>>>>>>>>>> caml_alloc_shr_aux : <%x>\n", wosize);
     new_block = expand_heap (wosize);
     if (new_block == NULL) {
       if (!raise_oom)
         return 0;
       else if (Caml_state->in_minor_collection)
-        caml_fatal_error ("out of memory");
+        caml_fatal_error ("out of mssemory");
       else
         caml_raise_out_of_memory ();
     }
@@ -800,6 +805,7 @@ CAMLexport void* caml_stat_alloc_aligned_noexc(asize_t sz, int modulo,
   char *raw_mem;
   uintnat aligned_mem;
   CAMLassert (0 <= modulo && modulo < Page_size);
+  // printf(">>>>>>>>>>>>>>>>>>>>>>>> caml_stat_alloc_aligned_noexc : <%x, %x>\n", sz, Page_size);
   raw_mem = (char *) caml_stat_alloc_noexc(sz + Page_size);
   if (raw_mem == NULL) return NULL;
   *b = raw_mem;
@@ -835,8 +841,13 @@ CAMLexport void* caml_stat_alloc_aligned(asize_t sz, int modulo,
 CAMLexport caml_stat_block caml_stat_alloc_noexc(asize_t sz)
 {
   /* Backward compatibility mode */
-  if (pool == NULL)
-    return malloc(sz);
+  if (pool == NULL){
+
+    // printf("########################### caml_stat_alloc_noexc(0) Requesting : %lu\n", sz);
+    void* ptt = malloc(sz);
+    // printf("########################### caml_stat_alloc_noexc(1) : %x\n", ptt);
+    return ptt; 
+  }
   else {
     struct pool_block *pb = malloc(sz + SIZEOF_POOL_BLOCK);
     if (pb == NULL) return NULL;
@@ -851,6 +862,7 @@ CAMLexport caml_stat_block caml_stat_alloc_noexc(asize_t sz)
     pool->next->prev = pb;
     pool->next = pb;
 
+    // printf("caml_stat_alloc_noexc(2) : %x\n", &(pb->data));
     return &(pb->data);
   }
 }

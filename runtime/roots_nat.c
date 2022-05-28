@@ -265,6 +265,9 @@ void caml_oldify_local_roots (void)
       }
     }
   }
+
+  printf("Status 1 passed %d\n", j);
+
   caml_globals_scanned = caml_globals_inited;
 
   /* Dynamic global roots */
@@ -275,6 +278,8 @@ void caml_oldify_local_roots (void)
       }
     }
   }
+
+  printf("Status 2 passed %d\n", j);
 
   /* The stack and local roots */
   sp = Caml_state->bottom_of_stack;
@@ -321,6 +326,9 @@ void caml_oldify_local_roots (void)
       }
     }
   }
+
+  printf("Status 3 passed %d\n", j);
+
   /* Local C roots */
   for (lr = Caml_state->local_roots; lr != NULL; lr = lr->next) {
     for (i = 0; i < lr->ntables; i++){
@@ -330,6 +338,9 @@ void caml_oldify_local_roots (void)
       }
     }
   }
+
+  printf("Status 4 passed %d\n", j);
+
   /* Global C roots */
   caml_scan_global_young_roots(&caml_oldify_one);
   /* Finalised values */

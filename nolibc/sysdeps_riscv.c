@@ -5,6 +5,7 @@
 #include <sys/time.h>
 #include <sys/times.h>
 #include <unistd.h>
+// #include <malloc.h>
 
 // functions exposed to ocaml-freestanding by ocaml-boot
 #include <ocaml-boot-riscv.h>
@@ -29,6 +30,7 @@ static size_t console_write(FILE *f __attribute__((unused)), const char *s,
     return l;
 }
 
+
 static FILE console = { .write = console_write };
 FILE *stderr = &console;
 FILE *stdout = &console;
@@ -42,6 +44,8 @@ ssize_t write(int fd, const void *buf, size_t count)
     errno = ENOSYS;
     return -1;
 }
+
+
 
 void exit(int status)
 {
@@ -91,9 +95,10 @@ static uintptr_t sbrk_cur;
  * a proper place to put it in the build system right now.
  */
 void _nolibc_init(uintptr_t heap_start, size_t heap_size)
-{
+{ 
     sbrk_start = sbrk_cur = heap_start;
     sbrk_end = heap_start + heap_size;
+    printf("Heap start: %lx | Heap end : %lx\n", heap_start, sbrk_end);
 }
 
 /*
@@ -130,14 +135,14 @@ void *sbrk(intptr_t increment)
 #else
 #undef assert
 #define assert(x)
-#define NO_MALLINFO 1
+#define NO_MALLINFO 0
 #endif
 
 #undef WIN32
 #define HAVE_MMAP 0
 #define HAVE_MREMAP 0
 #define MMAP_CLEARS 0
-#define NO_MALLOC_STATS 1
+#define NO_MALLOC_STATS 0
 #define LACKS_FCNTL_H
 #define LACKS_SYS_PARAM_H
 #define LACKS_SYS_MMAN_H

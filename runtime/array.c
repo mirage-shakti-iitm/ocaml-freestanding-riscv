@@ -293,6 +293,7 @@ CAMLprim value caml_make_vect(value len, value init)
   mlsize_t size, i;
 
   size = Long_val(len);
+  // printf("########################### caml_make_vect -> size : %lu\n", size);
   if (size == 0) {
     res = Atom(0);
 #ifdef FLAT_FLOAT_ARRAY
@@ -322,6 +323,7 @@ CAMLprim value caml_make_vect(value len, value init)
         /* We don't want to create so many major-to-minor references,
            so [init] is moved to the major heap by doing a minor GC. */
         CAML_EV_COUNTER (EV_C_FORCE_MINOR_MAKE_VECT, 1);
+        // printf(">>>>>>>>>>>>>>>>> Performing minor collection <%lx, %lx> :: <%lx, %lx> \n",Max_young_wosize, Max_wosize, len, init);
         caml_minor_collection ();
       }
       CAMLassert(!(Is_block(init) && Is_young(init)));

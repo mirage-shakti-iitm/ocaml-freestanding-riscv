@@ -200,6 +200,9 @@ void caml_oldify_one (value v, value *p)
   if (Is_block (v) && Is_young (v)){
     CAMLassert ((value *) Hp_val (v) >= Caml_state->young_ptr);
     hd = Hd_val (v);
+
+    // printf("hd value -> %x\n", hd);
+    
     if (hd == 0){         /* If already forwarded */
       *p = Field (v, 0);  /*  then forward pointer is first field. */
     }else{
@@ -363,6 +366,7 @@ void caml_empty_minor_heap (void)
     Caml_state->in_minor_collection = 1;
     caml_gc_message (0x02, "<");
     CAML_EV_BEGIN(EV_MINOR_LOCAL_ROOTS);
+    // printf("Invoking caml_oldify_local_roots %d\n", r);
     caml_oldify_local_roots();
     CAML_EV_END(EV_MINOR_LOCAL_ROOTS);
     CAML_EV_BEGIN(EV_MINOR_REF_TABLES);
