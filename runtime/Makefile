@@ -56,13 +56,13 @@ CFLAGS+=--gcc-toolchain=$(RISCV) -march=rv64gc
 
 COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -default-compartment-id -mllvm 255 -ffunction-sections
 # COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -cap-file-path -mllvm /home/sai/Shakti-TEE-Practical/mirage-shakti/ocaml-freestanding-riscv/compartment_allocations/strategy_1/nolibc
-# CFLAGS+=$(COMPARTMENT_FLAGS)
+CFLAGS+=$(COMPARTMENT_FLAGS)
 
 ASPPFLAGS = -DSYS_$(SYSTEM) -I.
 ifeq "$(UNIX_OR_WIN32)" "unix"
 ASPPFLAGS += -DMODEL_$(MODEL)
 endif
-# ASPPFLAGS+=$(COMPARTMENT_FLAGS)
+ASPPFLAGS+=$(COMPARTMENT_FLAGS)
 ASPPFLAGS+=--gcc-toolchain=$(RISCV) -march=rv64gc
 
 CSRCS=startup_aux.c  startup_nat.c main.c fail_nat.c		\
