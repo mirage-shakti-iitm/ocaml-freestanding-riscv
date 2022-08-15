@@ -4539,7 +4539,6 @@ static void* tmalloc_small(mstate m, size_t nb) {
 #if !ONLY_MSPACES
 
 void* dlmalloc(size_t bytes) {
-  // int sai = 1;
 
   /*
      Basic algorithm:
@@ -4568,8 +4567,8 @@ void* dlmalloc(size_t bytes) {
   ensure_initialization(); /* initialize in sys_alloc if not using locks */
 #endif
   
-  // printf("***************************** MALLOC BEFORE*******************************%lx\n", bytes);
-  // malloc_stats();
+  printf("***************************** MALLOC BEFORE*******************************%lx\n", bytes);
+  malloc_stats();
   
   
   if (!PREACTION(gm)) {
@@ -4675,8 +4674,8 @@ void* dlmalloc(size_t bytes) {
 
   postaction:
     POSTACTION(gm);
-    // printf("***************************** MALLOC AFTER *******************************%lx\n", bytes);
-    // malloc_stats();
+    printf("***************************** MALLOC AFTER *******************************%lx\n", bytes);
+    malloc_stats();
     return mem;
   }
   // sai = 2;
@@ -4706,9 +4705,9 @@ void dlfree(void* mem) {
 #else /* FOOTERS */
 #define fm gm
 #endif /* FOOTERS */
-    // int sai = 3;
-    // printf("***************************** FREE BEFORE *********************************%d\n", sai);
-    // malloc_stats();
+    int sai = 3;
+    printf("***************************** FREE BEFORE *********************************%d\n", sai);
+    malloc_stats();
     
     if (!PREACTION(fm)) {
       check_inuse_chunk(fm, p);
@@ -4796,9 +4795,9 @@ void dlfree(void* mem) {
       POSTACTION(fm);
     }
   }
-  // int sai = 3;
-  // printf("***************************** FREE AFTER *********************************%d\n", sai);
-  // malloc_stats();
+  int sai = 3;
+  printf("***************************** FREE AFTER *********************************%d\n", sai);
+  malloc_stats();
   
 #if !FOOTERS
 #undef fm
