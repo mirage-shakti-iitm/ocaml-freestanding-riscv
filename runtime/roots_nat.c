@@ -287,6 +287,7 @@ void caml_oldify_local_roots (void)
   regs = Caml_state->gc_regs;
   if (sp != NULL) {
     while (1) {
+      printf("Status 2.2 passed %d\n", j);
       /* Find the descriptor corresponding to the return address */
       h = Hash_retaddr(retaddr);
       while(1) {
@@ -308,6 +309,7 @@ void caml_oldify_local_roots (void)
         /* Move to next frame */
         sp += (d->frame_size & 0xFFFC);
         retaddr = Saved_return_address(sp);
+        printf("Status 2.3 passed %x\n", retaddr);
 #ifdef Already_scanned
         /* Stop here if the frame has been scanned during earlier GCs  */
         if (Already_scanned(sp, retaddr)) break;
