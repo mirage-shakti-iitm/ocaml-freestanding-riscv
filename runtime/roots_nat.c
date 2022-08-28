@@ -31,6 +31,7 @@
 #include <string.h>
 #include <stdio.h>
 
+
 /* Roots registered from C functions */
 
 void (*caml_scan_roots_hook) (scanning_action) = NULL;
@@ -238,6 +239,10 @@ void caml_register_dyn_global(void *v) {
   caml_dyn_globals = cons((void*) v,caml_dyn_globals);
 }
 
+extern uint64_t setu_return_compartment_handler_pc;
+// extern  pc_base_0[];
+
+
 /* Call [caml_oldify_one] on (at least) all the roots that point to the minor
    heap. */
 void caml_oldify_local_roots (void)
@@ -285,6 +290,12 @@ void caml_oldify_local_roots (void)
   sp = Caml_state->bottom_of_stack;
   retaddr = Caml_state->last_return_address;
   regs = Caml_state->gc_regs;
+
+  if(retaddr == setu_return_compartment_handler_pc){
+    printf("Identified malformed return address while scanning stack");
+    abort();
+  }
+
   if (sp != NULL) {
     while (1) {
       printf("Status 2.2 passed %d\n", j);
@@ -309,6 +320,11 @@ void caml_oldify_local_roots (void)
         /* Move to next frame */
         sp += (d->frame_size & 0xFFFC);
         retaddr = Saved_return_address(sp);
+        if(retaddr == setu_return_compartment_handler_pc){
+          printf("Identified malformed return address while scanning stack\n");
+          abort();
+        }
+
         printf("Status 2.3 passed %x\n", retaddr);
 #ifdef Already_scanned
         /* Stop here if the frame has been scanned during earlier GCs  */
@@ -322,6 +338,10 @@ void caml_oldify_local_roots (void)
         struct caml_context * next_context = Callback_link(sp);
         sp = next_context->bottom_of_stack;
         retaddr = next_context->last_retaddr;
+        if(retaddr == setu_return_compartment_handler_pc){
+          printf("Identified malformed return address while scanning stack");
+          abort();
+        }
         regs = next_context->gc_regs;
         /* A null sp means no more ML stack chunks; stop here. */
         if (sp == NULL) break;
