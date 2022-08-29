@@ -513,7 +513,7 @@ void caml_do_local_roots(scanning_action f, char * bottom_of_stack,
   uint64_t pos = 1;
   if(retaddr == setu_return_compartment_handler_pc){
     retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
-    printf("Identified malformed return address while scanning stack 1 %x\n", retaddr);
+    printf("Identified malformed return address while scanning stack 4 %x\n", retaddr);
     pos++;
     // abort();
   }
@@ -543,7 +543,7 @@ void caml_do_local_roots(scanning_action f, char * bottom_of_stack,
         retaddr = Saved_return_address(sp);
         if(retaddr == setu_return_compartment_handler_pc){
           retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
-          printf("Identified malformed return address while scanning stack 1 %x\n", retaddr);
+          printf("Identified malformed return address while scanning stack 5 %x\n", retaddr);
           pos++;
           // abort();
         }
@@ -551,7 +551,7 @@ void caml_do_local_roots(scanning_action f, char * bottom_of_stack,
         retaddr = Mask_already_scanned(retaddr);
         if(retaddr == setu_return_compartment_handler_pc){
           retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
-          printf("Identified malformed return address while scanning stack 1 %x\n", retaddr);
+          printf("Identified malformed return address while scanning stack 6 %x\n", retaddr);
           pos++;
           // abort();
         }
@@ -564,7 +564,7 @@ void caml_do_local_roots(scanning_action f, char * bottom_of_stack,
         retaddr = next_context->last_retaddr;
         if(retaddr == setu_return_compartment_handler_pc){
           retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
-          printf("Identified malformed return address while scanning stack 1 %x\n", retaddr);
+          printf("Identified malformed return address while scanning stack 7 %x\n", retaddr);
           pos++;
           // abort();
         }
