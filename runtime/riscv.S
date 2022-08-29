@@ -284,8 +284,8 @@ FUNCTION(caml_raise_exception)
         .size   caml_raise_exception, .-caml_raise_exception
 
 /* Start the OCaml program */
-
-FUNCTION(caml_start_program)
+        .section .text.caml.c_runtime,"ax",@progbits
+FUNCTION_R(caml_start_program)
         mv      ARG_DOMAIN_STATE_PTR, a0
         la      ARG, caml_program
         /* Code shared with caml_callback* */
