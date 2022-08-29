@@ -36,7 +36,6 @@
 #endif
 
 #define FUNCTION_R(name) \
-        .section .text.caml.c_runtime,"ax",@progbits; \
         .align 2; \
         .globl name; \
         .type name, @function; \
@@ -212,7 +211,7 @@ FUNCTION(caml_call_gc)
 
 /* Call a C function from OCaml */
 /* Function to call is in ARG */
-
+        .section .text.caml.c_runtime,"ax",@progbits
 FUNCTION_R(caml_c_call)
         /* Preserve return address in callee-save register s2 */
         mv      s2, ra
