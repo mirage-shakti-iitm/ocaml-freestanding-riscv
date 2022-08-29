@@ -35,6 +35,13 @@
 #define TEXT_SECTION(name)
 #endif
 
+#define FUNCTION_R(name) \
+        .section .text.caml.c_runtime,"ax",@progbits; \
+        .align 2; \
+        .globl name; \
+        .type name, @function; \
+name:
+
 #define FUNCTION(name) \
         TEXT_SECTION(name); \
         .align 2; \
@@ -202,7 +209,7 @@ FUNCTION(caml_call_gc)
 /* Call a C function from OCaml */
 /* Function to call is in ARG */
 
-FUNCTION(caml_c_call)
+FUNCTION_R(caml_c_call)
         /* Preserve return address in callee-save register s2 */
         mv      s2, ra
         /* Record lowest stack address and return address */
