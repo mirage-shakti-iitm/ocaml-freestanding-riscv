@@ -289,14 +289,14 @@ void caml_oldify_local_roots (void)
 
   printf("Status 2 passed %d\n", j);
 
-  uint64_t pos = 1;
+  
 
   /* The stack and local roots */
   sp = Caml_state->bottom_of_stack;
   retaddr = Caml_state->last_return_address;
   regs = Caml_state->gc_regs;
 
-
+  uint64_t pos = 1;
   if(retaddr == setu_return_compartment_handler_pc){
     retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
     printf("Identified malformed return address while scanning stack 1 %x\n", retaddr);
@@ -510,6 +510,13 @@ void caml_do_local_roots(scanning_action f, char * bottom_of_stack,
 
   sp = bottom_of_stack;
   retaddr = last_retaddr;
+  uint64_t pos = 1;
+  if(retaddr == setu_return_compartment_handler_pc){
+    retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
+    printf("Identified malformed return address while scanning stack 1 %x\n", retaddr);
+    pos++;
+    // abort();
+  }
   regs = gc_regs;
   if (sp != NULL) {
     while (1) {
@@ -534,8 +541,20 @@ void caml_do_local_roots(scanning_action f, char * bottom_of_stack,
         /* Move to next frame */
         sp += (d->frame_size & 0xFFFC);
         retaddr = Saved_return_address(sp);
+        if(retaddr == setu_return_compartment_handler_pc){
+          retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
+          printf("Identified malformed return address while scanning stack 1 %x\n", retaddr);
+          pos++;
+          // abort();
+        }
 #ifdef Mask_already_scanned
         retaddr = Mask_already_scanned(retaddr);
+        if(retaddr == setu_return_compartment_handler_pc){
+          retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
+          printf("Identified malformed return address while scanning stack 1 %x\n", retaddr);
+          pos++;
+          // abort();
+        }
 #endif
       } else {
         /* This marks the top of a stack chunk for an ML callback.
@@ -543,6 +562,12 @@ void caml_do_local_roots(scanning_action f, char * bottom_of_stack,
         struct caml_context * next_context = Callback_link(sp);
         sp = next_context->bottom_of_stack;
         retaddr = next_context->last_retaddr;
+        if(retaddr == setu_return_compartment_handler_pc){
+          retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
+          printf("Identified malformed return address while scanning stack 1 %x\n", retaddr);
+          pos++;
+          // abort();
+        }
         regs = next_context->gc_regs;
         /* A null sp means no more ML stack chunks; stop here. */
         if (sp == NULL) break;
