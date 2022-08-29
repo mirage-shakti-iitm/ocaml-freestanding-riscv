@@ -68,7 +68,11 @@ name:
 #define PLT(r) r
 #endif
 
+#if defined(FUNCTION_SECTIONS)
+
+#else
         .section        .text
+#endif
 
 #if defined(FUNCTION_SECTIONS)
         TEXT_SECTION(caml_hot__code_begin)
