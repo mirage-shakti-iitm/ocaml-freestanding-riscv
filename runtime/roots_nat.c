@@ -298,8 +298,8 @@ void caml_oldify_local_roots (void)
 
 
   if(retaddr == setu_return_compartment_handler_pc){
-    printf("Identified malformed return address while scanning stack 1\n");
     retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
+    printf("Identified malformed return address while scanning stack 1 %x\n", retaddr);
     pos++;
     // abort();
   }
@@ -329,8 +329,12 @@ void caml_oldify_local_roots (void)
         sp += (d->frame_size & 0xFFFC);
         retaddr = Saved_return_address(sp);
         if(retaddr == setu_return_compartment_handler_pc){
-          printf("Identified malformed return address while scanning stack 2\n");
+          printf("Identified malformed return address while scanning stack 2.1 %x\n", retaddr);
           retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
+          for(int i=0;i<ocaml_gc_cross_compartment_stack_position;i++){
+            printf("%x : ", ocaml_gc_cross_compartment_stack[i]);
+          }
+          printf("Identified malformed return address while scanning stack 2.2 %x\n", retaddr);
           pos++;
           // abort();
         }
@@ -349,8 +353,8 @@ void caml_oldify_local_roots (void)
         sp = next_context->bottom_of_stack;
         retaddr = next_context->last_retaddr;
         if(retaddr == setu_return_compartment_handler_pc){
-          printf("Identified malformed return address while scanning stack 3\n");
           retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
+          printf("Identified malformed return address while scanning stack 3 %x\n", retaddr);
           pos++;
           // abort();
         }
