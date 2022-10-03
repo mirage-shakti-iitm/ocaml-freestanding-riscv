@@ -274,7 +274,7 @@ void caml_oldify_local_roots (void)
     }
   }
 
-  printf("Status 1 passed %d\n", j);
+  // printf("Status 1 passed %d\n", j);
 
   caml_globals_scanned = caml_globals_inited;
 
@@ -287,7 +287,7 @@ void caml_oldify_local_roots (void)
     }
   }
 
-  printf("Status 2 passed %d\n", j);
+  // printf("Status 2 passed %d\n", j);
 
   
 
@@ -299,14 +299,14 @@ void caml_oldify_local_roots (void)
   uint64_t pos = 1;
   if(retaddr == setu_return_compartment_handler_pc){
     retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
-    printf("Identified malformed return address while scanning stack 1 %x\n", retaddr);
+    // printf("Identified malformed return address while scanning stack 1 %x\n", retaddr);
     pos++;
     // abort();
   }
 
   if (sp != NULL) {
     while (1) {
-      printf("Status 2.2 passed %d\n", j);
+      // printf("Status 2.2 passed %d\n", j);
       /* Find the descriptor corresponding to the return address */
       h = Hash_retaddr(retaddr);
       while(1) {
@@ -329,17 +329,17 @@ void caml_oldify_local_roots (void)
         sp += (d->frame_size & 0xFFFC);
         retaddr = Saved_return_address(sp);
         if(retaddr == setu_return_compartment_handler_pc){
-          printf("Identified malformed return address while scanning stack 2.1 %x\n", retaddr);
+          // printf("Identified malformed return address while scanning stack 2.1 %x\n", retaddr);
           retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
-          for(int i=0;i<ocaml_gc_cross_compartment_stack_position;i++){
-            printf("%x : ", ocaml_gc_cross_compartment_stack[i]);
-          }
-          printf("Identified malformed return address while scanning stack 2.2 %x\n", retaddr);
+          // for(int i=0;i<ocaml_gc_cross_compartment_stack_position;i++){
+            // printf("%x : ", ocaml_gc_cross_compartment_stack[i]);
+          // }
+          // printf("Identified malformed return address while scanning stack 2.2 %x\n", retaddr);
           pos++;
           // abort();
         }
 
-        printf("Status 2.3 passed %x\n", retaddr);
+        // printf("Status 2.3 passed %x\n", retaddr);
 #ifdef Already_scanned
         /* Stop here if the frame has been scanned during earlier GCs  */
         if (Already_scanned(sp, retaddr)) break;
@@ -354,7 +354,7 @@ void caml_oldify_local_roots (void)
         retaddr = next_context->last_retaddr;
         if(retaddr == setu_return_compartment_handler_pc){
           retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
-          printf("Identified malformed return address while scanning stack 3 %x\n", retaddr);
+          // printf("Identified malformed return address while scanning stack 3 %x\n", retaddr);
           pos++;
           // abort();
         }
@@ -365,7 +365,7 @@ void caml_oldify_local_roots (void)
     }
   }
 
-  printf("Status 3 passed %d\n", j);
+  // printf("Status 3 passed %d\n", j);
 
   /* Local C roots */
   for (lr = Caml_state->local_roots; lr != NULL; lr = lr->next) {
@@ -377,7 +377,7 @@ void caml_oldify_local_roots (void)
     }
   }
 
-  printf("Status 4 passed %d\n", j);
+  // printf("Status 4 passed %d\n", j);
 
   /* Global C roots */
   caml_scan_global_young_roots(&caml_oldify_one);
@@ -513,7 +513,7 @@ void caml_do_local_roots(scanning_action f, char * bottom_of_stack,
   uint64_t pos = 1;
   if(retaddr == setu_return_compartment_handler_pc){
     retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
-    printf("Identified malformed return address while scanning stack 4 %x\n", retaddr);
+    // printf("Identified malformed return address while scanning stack 4 %x\n", retaddr);
     pos++;
     // abort();
   }
@@ -543,7 +543,7 @@ void caml_do_local_roots(scanning_action f, char * bottom_of_stack,
         retaddr = Saved_return_address(sp);
         if(retaddr == setu_return_compartment_handler_pc){
           retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
-          printf("Identified malformed return address while scanning stack 5 %x\n", retaddr);
+          // printf("Identified malformed return address while scanning stack 5 %x\n", retaddr);
           pos++;
           // abort();
         }
@@ -551,7 +551,7 @@ void caml_do_local_roots(scanning_action f, char * bottom_of_stack,
         retaddr = Mask_already_scanned(retaddr);
         if(retaddr == setu_return_compartment_handler_pc){
           retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
-          printf("Identified malformed return address while scanning stack 6 %x\n", retaddr);
+          // printf("Identified malformed return address while scanning stack 6 %x\n", retaddr);
           pos++;
           // abort();
         }
@@ -564,7 +564,7 @@ void caml_do_local_roots(scanning_action f, char * bottom_of_stack,
         retaddr = next_context->last_retaddr;
         if(retaddr == setu_return_compartment_handler_pc){
           retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
-          printf("Identified malformed return address while scanning stack 7 %x\n", retaddr);
+          // printf("Identified malformed return address while scanning stack 7 %x\n", retaddr);
           pos++;
           // abort();
         }

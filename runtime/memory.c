@@ -487,7 +487,7 @@ Caml_inline value caml_alloc_shr_aux (mlsize_t wosize, tag_t tag, int track,
   CAML_EV_ALLOC(wosize);
   hp = caml_fl_allocate (wosize);
   if (hp == NULL){
-    printf(">>>>>>>>>>>>>>>>>>>>>>>> caml_alloc_shr_aux : <%x>\n", wosize);
+    // printf(">>>>>>>>>>>>>>>>>>>>>>>> caml_alloc_shr_aux : <%x>\n", wosize);
     new_block = expand_heap (wosize);
     if (new_block == NULL) {
       if (!raise_oom)
