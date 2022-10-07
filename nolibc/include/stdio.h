@@ -33,6 +33,7 @@ int ungetc(int, FILE *);
 size_t fwrite(const void *, size_t, size_t, FILE *);
 int fputc(int, FILE *);
 int putc(int, FILE *);
+int puts(const char *);
 int ferror(FILE *);
 
 #endif
