@@ -330,6 +330,11 @@ void caml_oldify_local_roots (void)
         retaddr = Saved_return_address(sp);
         if(retaddr == setu_return_compartment_handler_pc){
           printf("Identified malformed return address while scanning stack 2.1 %x\n", retaddr);
+
+          for(int king=ocaml_gc_cross_compartment_stack_position-1;king>=0; king--){
+            printf("ocaml_gc_cross_compartment_stack_position[%d] => %x\n", king,ocaml_gc_cross_compartment_stack[king]);
+          }
+
           retaddr = ocaml_gc_cross_compartment_stack[ocaml_gc_cross_compartment_stack_position-pos];
           // for(int i=0;i<ocaml_gc_cross_compartment_stack_position;i++){
             // printf("%x : ", ocaml_gc_cross_compartment_stack[i]);
