@@ -98,7 +98,7 @@ void _nolibc_init(uintptr_t heap_start, size_t heap_size)
 { 
     sbrk_start = sbrk_cur = heap_start;
     sbrk_end = heap_start + heap_size;
-    printf("Heap start: %lx | Heap end : %lx\n", heap_start, sbrk_end);
+    // printf("Heap start: %lx | Heap end : %lx\n", heap_start, sbrk_end);
 }
 
 /*
