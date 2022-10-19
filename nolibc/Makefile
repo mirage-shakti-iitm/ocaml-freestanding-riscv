@@ -21,7 +21,7 @@ CFLAGS+=$(FREESTANDING_CFLAGS)
 CFLAGS+=--gcc-toolchain=$(RISCV) -march=rv64gc
 
 # COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -default-compartment-id -mllvm 40 -ffunction-sections
-COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -default-compartment-id -mllvm 40 -mllvm -cap-file-path -mllvm /home/sai/Shakti-TEE-Practical/mirage-shakti/setu-cap-files/ocaml-freestanding-riscv/nolibc
+COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -default-compartment-id -mllvm 255 #-mllvm -cap-file-path -mllvm /home/sai/Shakti-TEE-Practical/mirage-shakti/setu-cap-files/ocaml-freestanding-riscv/nolibc
 CFLAGS+=$(COMPARTMENT_FLAGS)
 
 ASM_FLAGS=
