@@ -45,6 +45,11 @@
 #include "caml/ui.h"
 #endif
 
+#define read_csr(reg) ({ unsigned long __tmp; \
+  asm volatile ("csrr %0, " #reg : "=r"(__tmp)); \
+  __tmp; })
+
+
 extern int caml_parser_trace;
 char * caml_code_area_start, * caml_code_area_end;
 struct ext_table caml_code_fragments_table;
@@ -105,6 +110,9 @@ extern void caml_install_invalid_parameter_handler();
 
 #endif
 
+extern uint64_t startup_cycle_end;
+extern uint64_t startup_inst_end;
+
 value caml_startup_common(char_os **argv, int pooling)
 {
   char_os * exe_name, * proc_self_exe;
@@ -161,6 +169,10 @@ value caml_startup_common(char_os **argv, int pooling)
     if (caml_termination_hook != NULL) caml_termination_hook(NULL);
     return Val_unit;
   }
+
+  startup_cycle_end = read_csr(0xb00);
+  startup_inst_end = read_csr(0xb02);
+
   return caml_start_program(Caml_state);
 }
 
