@@ -30,7 +30,7 @@
 #define FUNCTION_SECTIONS
 
 #if defined(FUNCTION_SECTIONS)
-#define TEXT_SECTION(name) .section .text.caml.##name,"ax",@progbits
+#define TEXT_SECTION(name) .section .text.c.255,"ax",@progbits
 #else
 #define TEXT_SECTION(name)
 #endif
@@ -90,6 +90,7 @@ caml_system__code_begin:
 
 FUNCTION(caml_call_gc)
 .Lcaml_call_gc:
+        checkcap 255
         /* Record return address */
         STORE   ra, Caml_state(last_return_address)
         /* Record lowest stack address */
@@ -213,6 +214,7 @@ FUNCTION(caml_call_gc)
 /* Function to call is in ARG */
         .section .text.caml.c_runtime,"ax",@progbits
 FUNCTION_R(caml_c_call)
+        checkcap 255
         /* Preserve return address in callee-save register s2 */
         mv      s2, ra
         /* Record lowest stack address and return address */
@@ -232,6 +234,7 @@ FUNCTION_R(caml_c_call)
 
 /* Raise an exception from OCaml */
 FUNCTION(caml_raise_exn)
+        checkcap 255
         /* Test if backtrace is active */
         LOAD    TMP, Caml_state(backtrace_active)
         bnez    TMP, 2f
@@ -260,6 +263,7 @@ FUNCTION(caml_raise_exn)
 /* Raise an exception from C */
 
 FUNCTION(caml_raise_exception)
+        checkcap 255
         mv      DOMAIN_STATE_PTR, a0
         mv      a0, a1
         LOAD    TRAP_PTR, Caml_state(exception_pointer)
@@ -286,6 +290,7 @@ FUNCTION(caml_raise_exception)
 /* Start the OCaml program */
         .section .text.caml.c_runtime,"ax",@progbits
 FUNCTION_R(caml_start_program)
+        checkcap 255
         mv      ARG_DOMAIN_STATE_PTR, a0
         la      ARG, caml_program
         /* Code shared with caml_callback* */
@@ -397,6 +402,7 @@ FUNCTION_R(caml_start_program)
 /* Callback from C to OCaml */
 
 FUNCTION(caml_callback_asm)
+        checkcap 255
         /* Initial shuffling of arguments */
         /* a0 = Caml_state, a1 = closure, (a2) = args */
         mv      ARG_DOMAIN_STATE_PTR, a0
@@ -407,6 +413,7 @@ FUNCTION(caml_callback_asm)
         .size   caml_callback_asm, .-caml_callback_asm
 
 FUNCTION(caml_callback2_asm)
+        checkcap 255
         /* Initial shuffling of arguments */
         /* a0 = Caml_state, a1 = closure, (a2) = args */
         mv      ARG_DOMAIN_STATE_PTR, a0
@@ -419,6 +426,7 @@ FUNCTION(caml_callback2_asm)
         .size   caml_callback2_asm, .-caml_callback2_asm
 
 FUNCTION(caml_callback3_asm)
+        checkcap 255
         /* Initial shuffling of arguments */
         /* a0 = Caml_state, a1 = closure, (a2) = args */
         mv      ARG_DOMAIN_STATE_PTR, a0
@@ -431,6 +439,7 @@ FUNCTION(caml_callback3_asm)
         .size   caml_callback3_asm, .-caml_callback3_asm
 
 FUNCTION(caml_ml_array_bound_error)
+        checkcap 255
         /* Load address of [caml_array_bound_error] in ARG */
         la      ARG, caml_array_bound_error
         /* Call that function */
