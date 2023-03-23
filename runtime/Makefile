@@ -54,8 +54,8 @@ CFLAGS += -Wdeclaration-after-statement -fno-common -DCAML_NAME_SPACE
 
 CFLAGS+=--gcc-toolchain=$(RISCV) -march=rv64gc
 
-COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -default-compartment-id -mllvm 255 -ffunction-sections
-# COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -cap-file-path -mllvm /home/sai/Shakti-TEE-Practical/mirage-shakti/ocaml-freestanding-riscv/compartment_allocations/strategy_1/nolibc
+# COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -default-compartment-id -mllvm 255 -ffunction-sections
+COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -default-compartment-id -mllvm 4 -mllvm -cap-file-path -mllvm /home/sai/Shakti-TEE-Practical/mirage-shakti/fides-cap-files/fides-voting-system-1/ocaml-freestanding-riscv/nolibc
 CFLAGS+=$(COMPARTMENT_FLAGS)
 
 ASPPFLAGS = -DSYS_$(SYSTEM) -I.
