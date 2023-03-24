@@ -30,7 +30,7 @@
 #define FUNCTION_SECTIONS
 
 #if defined(FUNCTION_SECTIONS)
-#define TEXT_SECTION(name) .section .text.c.255,"ax",@progbits
+#define TEXT_SECTION(name) .section .text.caml.255,"ax",@progbits
 #else
 #define TEXT_SECTION(name)
 #endif
