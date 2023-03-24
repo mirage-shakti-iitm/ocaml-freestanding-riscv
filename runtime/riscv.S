@@ -228,8 +228,9 @@ FUNCTION_R(caml_c_call)
         /* Reload alloc ptr and alloc limit */
         LOAD    ALLOC_PTR, Caml_state(young_ptr)
         LOAD    ALLOC_LIMIT, Caml_state(young_limit)
+        mv ra, s2
         /* Return */
-        jr      s2
+        ret
         .size   caml_c_call, .-caml_c_call
 
 /* Raise an exception from OCaml */
