@@ -22,7 +22,7 @@
 #define ALLOC_PTR s10
 #define ALLOC_LIMIT s11
 #define TMP t1
-#define ARG t2
+#define ARG t6
 
 #define STORE sd
 #define LOAD ld
