@@ -312,7 +312,7 @@ void caml_oldify_local_roots (void)
       while(1) {
         printf("Status 2.2.1 passed %x %x\n", h, retaddr);
         d = caml_frame_descriptors[h];
-        printf("Status 2.2.2 passed %x %x\n", d, retaddr);
+        printf("Status 2.2.2 passed %x %x\n", d->retaddr, retaddr);
         if (d->retaddr == retaddr) break;
         printf("Status 2.2.3 passed %x %x\n", d->retaddr, retaddr);
         h = (h+1) & caml_frame_descriptors_mask;
