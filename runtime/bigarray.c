@@ -28,10 +28,22 @@
 #include "caml/mlvalues.h"
 #include "caml/signals.h"
 
+#include <caml/callback.h>
+#include <caml/mlvalues.h>
+
+
 #define int8 caml_ba_int8
 #define uint8 caml_ba_uint8
 #define int16 caml_ba_int16
 #define uint16 caml_ba_uint16
+
+
+CAMLprim value middle_c(value arg)
+{
+        caml_callback(*caml_named_value("test function"), arg);
+        return Val_unit;
+}
+
 
 /* Compute the number of elements of a big array */
 
