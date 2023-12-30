@@ -110,8 +110,10 @@ extern void caml_install_invalid_parameter_handler();
 
 #endif
 
+// FIDES
 extern uint64_t startup_cycle_end;
 extern uint64_t startup_inst_end;
+extern uint64_t caml_state_exnptr_addr;
 
 value caml_startup_common(char_os **argv, int pooling)
 {
@@ -172,6 +174,9 @@ value caml_startup_common(char_os **argv, int pooling)
 
   startup_cycle_end = read_csr(0xb00);
   startup_inst_end = read_csr(0xb02);
+
+  // Initialize caml_exception_pointer_addr_crosscomp
+  caml_state_exnptr_addr = &(Caml_state->exception_pointer);
 
   return caml_start_program(Caml_state);
 }
