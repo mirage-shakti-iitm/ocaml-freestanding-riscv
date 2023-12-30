@@ -88,7 +88,8 @@ caml_hot__code_end:
         .globl  caml_system__code_begin
 caml_system__code_begin:
 
-FUNCTION(caml_call_gc)
+.section .text.caml.c_runtime,"ax",@progbits
+FUNCTION_R(caml_call_gc)
 .Lcaml_call_gc:
         /* Record return address */
         STORE   ra, Caml_state(last_return_address)
@@ -231,7 +232,8 @@ FUNCTION_R(caml_c_call)
         .size   caml_c_call, .-caml_c_call
 
 /* Raise an exception from OCaml */
-FUNCTION(caml_raise_exn)
+.section .text.caml.ocaml_runtime,"ax",@progbits
+FUNCTION_R(caml_raise_exn)
         /* Test if backtrace is active */
         LOAD    TMP, Caml_state(backtrace_active)
         bnez    TMP, 2f
@@ -258,8 +260,8 @@ FUNCTION(caml_raise_exn)
         .type   caml_reraise_exn, @function
 
 /* Raise an exception from C */
-
-FUNCTION(caml_raise_exception)
+.section .text.caml.ocaml_runtime,"ax",@progbits
+FUNCTION_R(caml_raise_exception)
         mv      DOMAIN_STATE_PTR, a0
         mv      a0, a1
         LOAD    TRAP_PTR, Caml_state(exception_pointer)
@@ -284,7 +286,7 @@ FUNCTION(caml_raise_exception)
         .size   caml_raise_exception, .-caml_raise_exception
 
 /* Start the OCaml program */
-        .section .text.caml.c_runtime,"ax",@progbits
+        .section .text.caml.ocaml_runtime,"ax",@progbits
 FUNCTION_R(caml_start_program)
         mv      ARG_DOMAIN_STATE_PTR, a0
         la      ARG, caml_program
@@ -395,8 +397,8 @@ FUNCTION_R(caml_start_program)
         .size   .Ltrap_handler, .-.Ltrap_handler
 
 /* Callback from C to OCaml */
-
-FUNCTION(caml_callback_asm)
+.section .text.caml.ocaml_runtime,"ax",@progbits
+FUNCTION_C(caml_callback_asm)
         /* Initial shuffling of arguments */
         /* a0 = Caml_state, a1 = closure, (a2) = args */
         mv      ARG_DOMAIN_STATE_PTR, a0
@@ -406,7 +408,8 @@ FUNCTION(caml_callback_asm)
         j       .Ljump_to_caml
         .size   caml_callback_asm, .-caml_callback_asm
 
-FUNCTION(caml_callback2_asm)
+.section .text.caml.ocaml_runtime,"ax",@progbits
+FUNCTION_R(caml_callback2_asm)
         /* Initial shuffling of arguments */
         /* a0 = Caml_state, a1 = closure, (a2) = args */
         mv      ARG_DOMAIN_STATE_PTR, a0
@@ -418,7 +421,8 @@ FUNCTION(caml_callback2_asm)
         j       .Ljump_to_caml
         .size   caml_callback2_asm, .-caml_callback2_asm
 
-FUNCTION(caml_callback3_asm)
+.section .text.caml.ocaml_runtime,"ax",@progbits
+FUNCTION_R(caml_callback3_asm)
         /* Initial shuffling of arguments */
         /* a0 = Caml_state, a1 = closure, (a2) = args */
         mv      ARG_DOMAIN_STATE_PTR, a0
@@ -430,7 +434,8 @@ FUNCTION(caml_callback3_asm)
         j       .Ljump_to_caml
         .size   caml_callback3_asm, .-caml_callback3_asm
 
-FUNCTION(caml_ml_array_bound_error)
+.section .text.caml.c_runtime,"ax",@progbits
+FUNCTION_R(caml_ml_array_bound_error)
         /* Load address of [caml_array_bound_error] in ARG */
         la      ARG, caml_array_bound_error
         /* Call that function */
