@@ -38,11 +38,18 @@
 #define uint16 caml_ba_uint16
 
 
-CAMLprim value middle_c(value arg)
+CAMLprim value middle_c_1(value arg)
 {
-        caml_callback(*caml_named_value("test function"), arg);
+        caml_callback(*caml_named_value("b1"), arg);
         return Val_unit;
 }
+
+CAMLprim value middle_c_2(value arg)
+{
+        caml_callback(*caml_named_value("c1"), arg);
+        return Val_unit;
+}
+
 
 
 /* Compute the number of elements of a big array */
