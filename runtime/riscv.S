@@ -398,7 +398,7 @@ FUNCTION_R(caml_start_program)
 
 /* Callback from C to OCaml */
 .section .text.caml.ocaml_runtime,"ax",@progbits
-FUNCTION_C(caml_callback_asm)
+FUNCTION_R(caml_callback_asm)
         /* Initial shuffling of arguments */
         /* a0 = Caml_state, a1 = closure, (a2) = args */
         mv      ARG_DOMAIN_STATE_PTR, a0
