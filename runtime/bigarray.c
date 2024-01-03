@@ -40,14 +40,31 @@
 
 CAMLprim value middle_c_1(value arg)
 {
-        caml_callback(*caml_named_value("b1"), arg);
+        int a = 5;
+        for(int i=0;i<10;i++)
+          a++;
+        middle_c_1_1();
         return Val_unit;
 }
 
+int middle_c_1_1(value arg)
+{
+        caml_callback(*caml_named_value("b1"), arg);
+}
+
+
 CAMLprim value middle_c_2(value arg)
 {
-        caml_callback(*caml_named_value("c1"), arg);
+        int a = 5;
+        for(int i=0;i<10;i++)
+          a++;
+        middle_c_2_1();
         return Val_unit;
+}
+
+int middle_c_2_1(value arg)
+{
+        caml_callback(*caml_named_value("c1"), arg);
 }
 
 
