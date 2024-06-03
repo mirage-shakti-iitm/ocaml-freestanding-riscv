@@ -1,0 +1,111 @@
+OCaml -> OCaml
+	-> s0
+	-> store ra for gc scanning
+
+
+Ocaml -> C (direct call)
+	-> s0 
+	-> store ra for gc scanning
+
+OCaml -> C (indirect call)
+	-> caml_state(exn_ptr)
+	-> nothing
+
+C -> C 
+	-> store if caml_state changed (C-OCaml-C-OCaml -> OCaml)
+	-> nothing
+
+C -> OCaml
+	-> 
+
+C -> OCaml
+
+
+caml_call_gc -> C -> store exception pointer
+caml_raise_exn -> OCaml -> use register s0
+caml_raise_exception -> C -> load exception pointer
+caml_start_program -> C -> load exception pointer
+caml_c_call -> C -> store exception pointer
+
+
+
+OCaml(eh) -> C --- C -> OCaml(raise)
+				caml state changed
+
+
+OCaml(eh) -> C -> C -- OCaml(raise)
+
+
+
+caml_callback_exn
+
+caml_raise_exception
+caml_raise
+caml_raise_if_exception
+caml_callback_exn
+caml_callback_asm
+caml_callback
+
+
+
+
+
+--------------
+middle_c
+caml_callback 
+	caml_callback_exn
+	caml_callback_asm
+	camlSample__b_callback
+	caml_raise_exn
+	trap_handler
+	jump_to_caml
+	tail-return to caml_callback_exn
+	caml_raise_if_exception
+	caml_raise
+	caml_raise_exception
+
+
+	right, also, I notice that
+exceptions raised from OCaml functions follow a different path compared to excetpions raised from OCaml callback functions
+eg:
+say OCaml functions are: foo, bar and C function is: sum
+
+foo (exception handler registered) -> bar (raises exception): this follows the normal path of caml_raise_exn(invoked when raising exceptions from OCaml), unwinding the stack
+
+whereas
+
+ foo (exception handler registered) -> sum ->bar (raises exception): this first invokes caml_raise_exn, and then goes via caml_callback_exn path returning a result of exception type and goes to the actual exception handler via caml_raise_exception(invoked when raising exception when C)
+
+The thing i didnt understand is why this extra level of indirection when exceptions raised from ocaml callbacks?
+
+
+
+
+
+OCaml -> OCaml -> C -> C -> OCaml -> C -> OCaml -> OCaml
+
+
+OCaml -> OCaml 	: save s1 register 	: check s1 register
+OCaml -> C 		: indirect call 	: check caml_state(exception pointer)
+OCaml -> C 		: direct call 		: check caml_state(exception pointer)
+C -> OCaml 		: 					: check s1 register
+C -> C 			: 					: check caml_state(exception pointer)
+
+
+
+
+
+OCaml(8000) -> OCaml(8500) - C(9000) - Ocaml -> OCaml
+
+
+
+
+OCaml -> C ()
+OCaml -> OCaml 
+C -> C 
+C -> OCaml (only via caml_start_program, caml_raise_exception)
+
+
+
+Logic:
+	OCaml -> OCaml-
