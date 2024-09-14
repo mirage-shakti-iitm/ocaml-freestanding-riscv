@@ -54,8 +54,8 @@ CFLAGS += -Wdeclaration-after-statement -fno-common -DCAML_NAME_SPACE
 
 CFLAGS+=--gcc-toolchain=$(RISCV) -march=rv64gc
 
-COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -default-compartment-id -mllvm 255 -ffunction-sections
-COMPARTMENT_FLAGS+=-mllvm -cap-file-path -mllvm /home/sai/Shakti-TEE-Practical/mirage-shakti/understanding-exceptions-cross-compartment/runtime
+COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -default-compartment-id -mllvm 255 -ffunction-sections -mllvm -all-checkcap
+# COMPARTMENT_FLAGS+=-mllvm -cap-file-path -mllvm /home/sai/Shakti-TEE-Practical/mirage-shakti/understanding-exceptions-cross-compartment/runtime
 CFLAGS+=$(COMPARTMENT_FLAGS)
 
 ASPPFLAGS = -DSYS_$(SYSTEM) -I.
