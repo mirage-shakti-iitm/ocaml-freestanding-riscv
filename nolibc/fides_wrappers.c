@@ -7,8 +7,10 @@
 #define IV 0xdeadbeef1ee7c0d3;
 
 #define NUM_ENTRIES 64*1024
+#define FIDES_NO_INDEX (NUM_ENTRIES)      /* returned when the table is full */
+
 extern uint64_t __fides_bounds_table[NUM_ENTRIES*2];
-extern uint64_t max_index = 0;
+extern uint64_t max_index;                /* defined in startup_2.c */
 uint64_t next_free_index = 0;
 
 // __int128 saferealloc(__int128 fpr, unsigned long new_sz){
@@ -25,7 +27,7 @@ uint64_t next_free_index = 0;
 // 	return ret;
 // }
 
-inline void* craft_fides_pointer(uint64_t ptr, uint64_t index, uint64_t temporal_id);
+static inline void* craft_fides_pointer(uint64_t ptr, uint64_t index, uint64_t temporal_id)
 {
 	// printf("Called craft ptr = %x, base = %x, bound = %x, id = %x\n",ptr, base, bound, id);
 	uint64_t metadata = (index << 16) + (temporal_id & 0xffff);
@@ -33,22 +35,59 @@ inline void* craft_fides_pointer(uint64_t ptr, uint64_t index, uint64_t temporal
 	return (void*)fides_ptr;
 }
 
-void* __fides_malloc(uint64_t s)
+/* Take the next free metadata slot.
+
+   Lifted out of __fides_malloc unchanged so that globals can come through
+   the same door. Boot calls this once per global before any allocation
+   happens, so globals and the heap share one cursor and one free list and
+   two live objects can never be handed the same index. Nothing has to be
+   reserved for globals and no caller has to skip over anyone else's slots.
+
+   A free slot holds either a link to the next free one, or zero if it has
+   never been used; an occupied slot holds a base address in its high half.
+   That is the rule __fides_free writes and the hardware reads. */
+uint64_t __fides_alloc_index(void)
 {
-	void *ptr = malloc(s);
-	register uint64_t cook_hash;
-	register uint64_t* bounds_table_loc = (uint64_t*)((uint64_t*)__fides_bounds_table+next_free_index*2+1);
-	__asm__ __volatile__("hash %0, %1" : "=r" (cook_hash) : "r" (bounds_table_loc));
-	void* fides_ptr = craft_fides_pointer((uint64_t)ptr, next_free_index, cook_hash);
-	uint64_t new_next_free_index = __fides_bounds_table[next_free_index*2];
-	__fides_bounds_table[next_free_index*2] = ((uint64_t)ptr << 32) + ((uint64_t)ptr+s);
-	if((new_next_free_index == 0) && (next_free_index == max_index)){
+	uint64_t index = next_free_index;
+
+	if(index >= NUM_ENTRIES){
+		return FIDES_NO_INDEX;
+	}
+
+	uint64_t link = __fides_bounds_table[index*2];
+
+	if((link == 0) && (index == max_index)){
 		max_index++;
 		next_free_index = max_index;
 	}
 	else{
-		next_free_index = new_next_free_index;
+		next_free_index = link;
 	}
+	return index;
+}
+
+void* __fides_malloc(uint64_t s)
+{
+	void *ptr = malloc(s);
+
+	/* Tagging a null pointer would write a table entry whose high half is
+	   zero, which reads back as "free" and corrupts the free list. */
+	if(ptr == 0){
+		return ptr;
+	}
+
+	uint64_t index = __fides_alloc_index();
+	if(index == FIDES_NO_INDEX){
+		return ptr;              /* unprotected, but correct */
+	}
+
+	register uint64_t cook_hash;
+	register uint64_t* bounds_table_loc = (uint64_t*)((uint64_t*)__fides_bounds_table+index*2+1);
+	__asm__ __volatile__("hash %0, %1" : "=r" (cook_hash) : "r" (bounds_table_loc));
+	void* fides_ptr = craft_fides_pointer((uint64_t)ptr, index, cook_hash);
+
+	__fides_bounds_table[index*2] = ((uint64_t)ptr << 32) + ((uint64_t)ptr+s);
+
 	return fides_ptr;
 }
 
