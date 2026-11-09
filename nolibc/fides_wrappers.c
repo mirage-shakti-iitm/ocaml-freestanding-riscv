@@ -127,8 +127,9 @@ static void fides_release_index(uint64_t index)
 
 /* A pointer with nothing above bit 31 carries no metadata: it is NULL, or
    a block fides_tag returned untagged because the table was full. Addresses
-   fit in 32 bits, so a tagged pointer only looks like this if its index and
-   cookie are both zero -- which is why callers ask fides_is_live first. */
+   fit in 32 bits, and the hardware never issues a cookie whose low 16 bits
+   -- the part a pointer carries -- are zero, so every pointer fides_tag does
+   tag has a bit set up here and cannot be mistaken for one of these. */
 static int fides_is_raw(void *p)
 {
 	return ((uint64_t)p >> 32) == 0;
