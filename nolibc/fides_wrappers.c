@@ -48,6 +48,12 @@ static inline void* craft_fides_pointer(uint64_t ptr, uint64_t index, uint64_t t
    That is the rule __fides_free writes and the hardware reads. */
 uint64_t __fides_alloc_index(void)
 {
+	/* TEMPORARY (FIDES-RESERVE-INDEX0): keep index 0 free for untagged pointers. */
+	if(max_index == 0){
+		max_index = 1;
+		next_free_index = 1;
+	}
+
 	uint64_t index = next_free_index;
 
 	if(index >= NUM_ENTRIES){
